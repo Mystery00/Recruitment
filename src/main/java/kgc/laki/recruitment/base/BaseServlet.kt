@@ -1,7 +1,6 @@
 package kgc.laki.recruitment.base
 
 import java.io.IOException
-import java.util.*
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest

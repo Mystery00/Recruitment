@@ -1,5 +1,6 @@
 package kgc.laki.recruitment.factory
 
+import kgc.laki.recruitment.constant.PropertiesConstant
 import kgc.laki.recruitment.utils.PropertiesUtil
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -14,8 +15,14 @@ object RetrofitFactory {
 			.writeTimeout(20, TimeUnit.SECONDS)
 			.build()
 
+	val laGouRetrofit = Retrofit.Builder()
+			.baseUrl(PropertiesUtil.getUrl(PropertiesConstant.LA_GOU))
+			.client(client)
+			.addConverterFactory(GsonConverterFactory.create())
+			.build()!!
+
 	val hotSearchRetrofit = Retrofit.Builder()
-			.baseUrl(PropertiesUtil.getUrl("HotSearchRequestUrl"))
+			.baseUrl(PropertiesUtil.getUrl(PropertiesConstant.HOT_SEARCH))
 			.client(client)
 			.addConverterFactory(GsonConverterFactory.create())
 			.build()!!
