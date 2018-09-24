@@ -2,9 +2,7 @@ package kgc.laki.recruitment.api
 
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface LaGouAPI {
 	@GET("/hotword")
@@ -25,4 +23,11 @@ interface LaGouAPI {
 			   @Query("yx") yx: String,//月薪
 			   @Query("px") px: String//排序
 	): Call<ResponseBody>
+
+	@GET("/collect")
+	fun getSearchResultFirst():Call<ResponseBody>
+
+	@FormUrlEncoded
+	@POST("/jobs/positionAjax.json?needAddtionalResult=false")
+	fun getSearchResult(@Field("pn") page: Int, @Field("kd") query: String, @Field("first") first: String = "false"): Call<ResponseBody>
 }

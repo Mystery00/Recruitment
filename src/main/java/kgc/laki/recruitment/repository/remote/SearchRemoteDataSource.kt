@@ -1,5 +1,7 @@
 package kgc.laki.recruitment.repository.remote
 
+import kgc.laki.recruitment.api.LaGouAPI
+import kgc.laki.recruitment.factory.RetrofitFactory
 import kgc.laki.recruitment.model.CompanyJob
 import kgc.laki.recruitment.model.SearchBean
 import kgc.laki.recruitment.model.response.SearchChoose
@@ -36,6 +38,16 @@ object SearchRemoteDataSource : SearchDataSource {
 
 	override fun getCompanyJob(query: String?, searchBean: SearchBean, html: String?): List<CompanyJob> {
 		val companyJobList = ArrayList<CompanyJob>()
+		RetrofitFactory.laGouGetResultFirstRetrofit
+				.create(LaGouAPI::class.java)
+				.getSearchResultFirst()
+				.execute()
+		val apiResponse = RetrofitFactory.laGouRetrofit
+				.create(LaGouAPI::class.java)
+				.getSearchResult(2, query!!)
+				.execute()
+
+		println(apiResponse.body()?.string())
 		return ArrayList()
 	}
 
