@@ -17,8 +17,8 @@ class IndexServlet : BaseServlet() {
 			SessionUtil.setHotSearch(request, IndexRepository.getHotSearch())
 		} catch (e: KGCException) {
 			SessionUtil.setException(request, e)
-			response.sendRedirect("error.jsp")
+			response.sendRedirect("/error.jsp")
 		}
-		response.sendRedirect("main.jsp")
+		response.sendRedirect("/main.jsp")
 	}
 }

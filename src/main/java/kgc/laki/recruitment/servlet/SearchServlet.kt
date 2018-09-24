@@ -16,8 +16,8 @@ class SearchServlet : BaseServlet() {
 			SearchRepository.doSearch(request, query)
 		} catch (e: KGCException) {
 			SessionUtil.setException(request, e)
-			response.sendRedirect("error.jsp")
+			response.sendRedirect("/error.jsp")
 		}
-		response.sendRedirect("search.jsp")
+		response.sendRedirect("/search.jsp")
 	}
 }
