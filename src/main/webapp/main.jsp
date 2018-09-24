@@ -21,7 +21,8 @@
 <!--顶部导航栏-->
 <div class="mdui-container-fluid">
     <div class="mdui-toolbar mdui-color-theme">
-        <span class="mdui-typo-title">拉勾-第三方版</span>
+        <a href="index" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">home</i></a>
+        <span class="mdui-typo-title">拉勾 - 第三方版</span>
         <div class="mdui-toolbar-spacer"></div>
         <a href="javascript:;" class="mdui-btn mdui-ripple">登录</a>
         <a href="javascript:;" class="mdui-btn mdui-ripple">注册</a>
@@ -29,7 +30,7 @@
 </div>
 <div class="mdui-container">
     <div class="mdui-textfield">
-        <form action="/doSearch" method="post">
+        <form action="doSearch" method="post">
             <i class="mdui-icon material-icons">search</i>
             <input class="mdui-textfield-input" type="text" placeholder="Search" name="query"/>
         </form>

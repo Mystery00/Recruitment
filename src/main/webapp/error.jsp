@@ -10,10 +10,10 @@
     <script>
         var dialog = document.getElementById("hint_dialog");
         dialog.addEventListener('closed.mdui.dialog', function () {
-            window.location.href = '/'
+            window.location.href = 'index'
         });
         dialog.addEventListener('confirm.mdui.dialog', function () {
-            window.location.href = '/'
+            window.location.href = 'index'
         });
     </script>
 </head>
@@ -21,7 +21,7 @@
 <%
     kgcException = SessionUtil.INSTANCE.getExceptionThenDestory(request);
     if (kgcException == null) {
-        response.sendRedirect("/");
+        response.sendRedirect("index");
         return;
     }
 %>

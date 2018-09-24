@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@WebServlet(name = "IndexServlet", urlPatterns = ["/"])
+@WebServlet(name = "IndexServlet", urlPatterns = ["/","/index"])
 class IndexServlet : BaseServlet() {
 	override fun doAction(request: HttpServletRequest, response: HttpServletResponse) {
 		try {
@@ -17,8 +17,8 @@ class IndexServlet : BaseServlet() {
 			SessionUtil.setHotSearch(request, IndexRepository.getHotSearch())
 		} catch (e: KGCException) {
 			SessionUtil.setException(request, e)
-			response.sendRedirect("/error.jsp")
+			response.sendRedirect("error.jsp")
 		}
-		response.sendRedirect("/main.jsp")
+		response.sendRedirect("main.jsp")
 	}
 }
