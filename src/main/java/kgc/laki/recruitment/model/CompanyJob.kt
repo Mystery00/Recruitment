@@ -3,7 +3,7 @@ package kgc.laki.recruitment.model
 class CompanyJob {
 	lateinit var jobName: String
 	lateinit var location: String
-	lateinit var pulishTime: String
+	lateinit var publishTime: String
 	lateinit var money: String
 	lateinit var exp: String
 	lateinit var grade: String

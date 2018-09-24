@@ -11,7 +11,7 @@
 <head>
     <title>搜索</title>
 </head>
-<body class="mdui-theme-primary-teal mdui-theme-accent-pink">
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
 <%
     searchChoose = SessionUtil.INSTANCE.getSearchChoose(request);
     companyJobList = SessionUtil.INSTANCE.getCompanyJob(request);
@@ -30,9 +30,50 @@
         <%
             for (CompanyJob companyJob : companyJobList) {
         %>
-        <li class="mdui-list-item mdui-ripple"><%=companyJob.jobName%>
+        <li class="mdui-list-item mdui-ripple">
+            <div class="mdui-list-item-content mdui-container">
+                <div class="mdui-row mdui-row-gapless">
+                    <div class="mdui-col-xs-6">
+                        <div class="mdui-list-item-title">
+                            <span class="mdui-text-color-theme"><%=companyJob.jobName%>[<%=companyJob.location%>]</span>
+                            <small><%=companyJob.publishTime%>
+                            </small>
+                        </div>
+                        <div class="mdui-list-item-text mdui-list-item-one-line">
+                            <span class="mdui-text-color-red"><strong><%=companyJob.money%></strong></span>
+                            工作经验<%=companyJob.exp%>
+                            / <%=companyJob.grade%>
+                        </div>
+                        <div class="mdui-list-item-text" style="height: 32px;">
+                            <%
+                                for (String s : companyJob.tag) {
+                            %>
+                            <div class="mdui-chip">
+                                <span class="mdui-chip-title mdui-text-color-theme"><%=s%></span>
+                            </div>
+                            <%
+                                }
+                            %>
+                        </div>
+                    </div>
+                    <div class="mdui-col-xs-6">
+                        <div class="mdui-list-item-title">
+                            <span class="mdui-text-color-theme"><%=companyJob.companyName%></span>
+                        </div>
+                        <div class="mdui-list-item-text mdui-list-item-one-line">
+                            <%=companyJob.hy%> / <%=companyJob.jd%> / <%=companyJob.personNum%>
+                        </div>
+                        <div class="mdui-list-item-text"
+                             style="height: 32px;line-height: 32px">
+                            "<%=companyJob.temptation%>"
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div><img src="<%=companyJob.companyImgUrl%>" width="60"
+                      height="60"/></div>
         </li>
-        <li class="mdui-divider"></li>
+        <li class="mdui-divider mdui-m-y-0"></li>
         <%
             }
         %>

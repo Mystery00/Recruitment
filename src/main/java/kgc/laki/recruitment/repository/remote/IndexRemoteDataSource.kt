@@ -1,6 +1,7 @@
 package kgc.laki.recruitment.repository.remote
 
 import kgc.laki.recruitment.api.LaGouAPI
+import kgc.laki.recruitment.constant.ExceptionCodeConstant
 import kgc.laki.recruitment.factory.GsonFactory
 import kgc.laki.recruitment.factory.RetrofitFactory
 import kgc.laki.recruitment.model.HotSearch
@@ -9,7 +10,9 @@ import kgc.laki.recruitment.model.KeywordCategory
 import kgc.laki.recruitment.model.KeywordGroup
 import kgc.laki.recruitment.model.response.HotSearchResponse
 import kgc.laki.recruitment.repository.dataSource.IndexDataSource
+import kgc.laki.recruitment.utils.exception.KGCException
 import org.jsoup.Jsoup
+import kotlin.Exception
 
 object IndexRemoteDataSource : IndexDataSource {
 	override fun getHotSearch(): List<HotSearch> {
@@ -18,16 +21,23 @@ object IndexRemoteDataSource : IndexDataSource {
 				.create(LaGouAPI::class.java)
 				.getHotSearch()
 				.execute()
-		if (apiResponse.isSuccessful) {
-			val originMessage = apiResponse.body()!!.string()
+		if (!apiResponse.isSuccessful)
+			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
+		val originMessage = apiResponse.body()?.string()
+				?: throw KGCException(ExceptionCodeConstant.J_ERROR_EMPTY_RESPONSE)
+		try {
 			val message = originMessage.substring(originMessage.indexOf('(') + 1, originMessage.indexOf(')'))
-			val jsons = GsonFactory.gson.fromJson<HotSearchResponse>(message, HotSearchResponse::class.java)
-			jsons.hotwords.forEach {
+			GsonFactory.gson
+					.fromJson<HotSearchResponse>(message, HotSearchResponse::class.java)
+					.hotwords.forEach {
 				val hotSearch = HotSearch()
 				hotSearch.href = it.url
 				hotSearch.value = it.text
 				hotSearchList.add(hotSearch)
 			}
+		} catch (e: Exception) {
+			e.printStackTrace()
+			throw KGCException(ExceptionCodeConstant.J_ERROR_PARSE)
 		}
 		return hotSearchList
 	}
@@ -38,8 +48,11 @@ object IndexRemoteDataSource : IndexDataSource {
 				.create(LaGouAPI::class.java)
 				.getKeyWord()
 				.execute()
-		if (apiResponse.isSuccessful) {
-			val originResponse = apiResponse.body()!!.string()
+		if (!apiResponse.isSuccessful)
+			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
+		val originResponse = apiResponse.body()?.string()
+				?: throw KGCException(ExceptionCodeConstant.J_ERROR_EMPTY_RESPONSE)
+		try {
 			val doc = Jsoup.parse(originResponse)
 			doc.select(".menu_box").forEach { element ->
 				val menu_main = element.select(".menu_main")[0]
@@ -47,7 +60,7 @@ object IndexRemoteDataSource : IndexDataSource {
 				keywordCategory.category = menu_main.select("h2")[0].text()
 				val menu_sub = element.select(".menu_sub")[0]
 				val dls = menu_sub.select("dl")
-				val keywordGroupList=ArrayList<KeywordGroup>()
+				val keywordGroupList = ArrayList<KeywordGroup>()
 				dls.forEach {
 					val dt = it.select("dt")[0]
 					val dd = it.select("dd")[0]
@@ -63,9 +76,12 @@ object IndexRemoteDataSource : IndexDataSource {
 					}
 					keywordGroupList.add(keywordGroup)
 				}
-				keywordCategory.keywordGroupList=keywordGroupList
+				keywordCategory.keywordGroupList = keywordGroupList
 				keywordCategoryList.add(keywordCategory)
 			}
+		} catch (e: Exception) {
+			e.printStackTrace()
+			throw KGCException(ExceptionCodeConstant.J_ERROR_PARSE)
 		}
 		return keywordCategoryList
 	}

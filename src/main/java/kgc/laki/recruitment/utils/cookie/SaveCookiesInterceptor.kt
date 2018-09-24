@@ -11,9 +11,6 @@ class SaveCookiesInterceptor : Interceptor {
 		if (response.headers("set-cookie").isNotEmpty()) {
 			val cookies = encodeCookie(response.headers("set-cookie"))
 			CookieManager.putCookie(request.url().host(), cookies)
-			println("SaveCookiesInterceptor: url: ${request.url()}")
-			println("SaveCookiesInterceptor: host: ${request.url().host()}")
-			println("SaveCookiesInterceptor: cookie: $cookies")
 		}
 		return response
 	}

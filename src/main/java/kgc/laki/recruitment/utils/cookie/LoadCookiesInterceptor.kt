@@ -6,8 +6,6 @@ import okhttp3.Response
 class LoadCookiesInterceptor : Interceptor {
 	override fun intercept(chain: Interceptor.Chain): Response {
 		val request = chain.request()
-		println("LoadCookiesInterceptor: url: ${request.url()}")
-		println("LoadCookiesInterceptor: host: ${request.url().host()}")
 		val builder = request.newBuilder()
 		if (request.url().toString().contains("/jobs/positionAjax.json")) {
 			val saveCookie = CookieManager.getCookieMap("a.lagou.com")

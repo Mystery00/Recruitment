@@ -13,7 +13,7 @@
 <head>
     <title>拉勾网</title>
 </head>
-<body class="mdui-theme-primary-teal mdui-theme-accent-pink">
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
 <%
     hotSearchList = SessionUtil.INSTANCE.getHotSearch(request);
     keywordCategoryList = SessionUtil.INSTANCE.getKeyWord(request);
@@ -39,7 +39,7 @@
             for (HotSearch hotSearch : hotSearchList) {
         %>
         <div class="mdui-chip"><a href="<%=hotSearch.href%>"><span
-                class="mdui-chip-title mdui-text-color-teal"><%=hotSearch.value%></span></a>
+                class="mdui-chip-title mdui-text-color-theme"><%=hotSearch.value%></span></a>
         </div>
         <%
             }
@@ -80,7 +80,7 @@
                             for (Keyword keyword : keywordGroup.keywordList) {
                         %>
                         <div class="mdui-chip"><a href="<%=keyword.href%>"><span
-                                class="mdui-chip-title mdui-text-color-teal"><%=keyword.value%></span></a>
+                                class="mdui-chip-title mdui-text-color-theme"><%=keyword.value%></span></a>
                         </div>
                         <%
                             }

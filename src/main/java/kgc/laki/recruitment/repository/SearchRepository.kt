@@ -1,10 +1,12 @@
 package kgc.laki.recruitment.repository
 
 import kgc.laki.recruitment.api.LaGouAPI
+import kgc.laki.recruitment.constant.ExceptionCodeConstant
 import kgc.laki.recruitment.factory.RetrofitFactory
 import kgc.laki.recruitment.model.SearchBean
 import kgc.laki.recruitment.repository.remote.SearchRemoteDataSource
 import kgc.laki.recruitment.utils.SessionUtil
+import kgc.laki.recruitment.utils.exception.KGCException
 import javax.servlet.http.HttpServletRequest
 
 object SearchRepository {
@@ -95,8 +97,9 @@ object SearchRepository {
 						searchBean.yx,
 						searchBean.px)
 				.execute()
-		if (apiResponse.isSuccessful)
-			return apiResponse.body()!!.string()
-		return ""
+		if (!apiResponse.isSuccessful)
+			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
+		return apiResponse.body()?.string()
+				?: throw KGCException(ExceptionCodeConstant.J_ERROR_EMPTY_RESPONSE)
 	}
 }
