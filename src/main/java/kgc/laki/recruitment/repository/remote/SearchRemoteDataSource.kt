@@ -39,6 +39,7 @@ object SearchRemoteDataSource : SearchDataSource {
 			searchChoose.hy = getHyArea(hy_area)
 			searchChoose.px = getOrderType(order_px)
 			searchChoose.yx = getSalary(salary)
+			searchChoose.searchBean = searchBean
 		} catch (e: Exception) {
 			e.printStackTrace()
 			throw KGCException(ExceptionCodeConstant.J_ERROR_PARSE)
@@ -62,6 +63,7 @@ object SearchRemoteDataSource : SearchDataSource {
 			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
 		val jsonString = apiResponse.body()?.string()
 				?: throw KGCException(ExceptionCodeConstant.J_ERROR_EMPTY_RESPONSE)
+		println(jsonString)
 		try {
 			val companyJobResponse = GsonFactory.gson.fromJson<CompanyJobResponse>(jsonString, CompanyJobResponse::class.java)
 			companyJobResponse.content.positionResult.result.forEach {
@@ -89,14 +91,16 @@ object SearchRemoteDataSource : SearchDataSource {
 	}
 
 	private fun getCity(element: Element): List<String> {
-		val lis = element.select("li")
+		val more = element.select(".workPosition")[0]
+		val lis = more.select("li")
 		val cities = ArrayList<String>()
 		lis.forEach { c ->
 			val a = c.select("a")
 			a.forEach { label ->
-				cities.add(label.text())
+				cities.add(label.text().trim())
 			}
 		}
+		cities.remove("全部城市 >")
 		return cities
 	}
 

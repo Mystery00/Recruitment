@@ -27,6 +27,22 @@
     </div>
 </div>
 <div class="mdui-container">
+    <div>
+        <span class="mdui-text-color-theme">工作地点：</span>
+        <%
+            for (String city : searchChoose.city) {
+        %>
+        <label class="mdui-radio">
+            <input type="radio" name="group1"/>
+            <i class="mdui-radio-icon"></i><%=city%>
+        </label>
+        <%
+            }
+        %>
+    </div>
+    <div class="mdui-typo">
+        <hr/>
+    </div>
     <ul class="mdui-list">
         <%
             for (CompanyJob companyJob : companyJobList) {
@@ -79,6 +95,13 @@
             }
         %>
     </ul>
+    <div class="mdui-btn-group">
+        <button type="button" class="mdui-btn"><i class="mdui-icon material-icons">chevron_left</i>
+        </button>
+        <button type="button" class="mdui-btn mdui-btn-active">1</button>
+        <button type="button" class="mdui-btn"><i class="mdui-icon material-icons">chevron_right</i>
+        </button>
+    </div>
 </div>
 <link rel="stylesheet" href="//cdnjs.loli.net/ajax/libs/mdui/0.4.1/css/mdui.min.css">
 <script src="//cdnjs.loli.net/ajax/libs/mdui/0.4.1/js/mdui.min.js"></script>

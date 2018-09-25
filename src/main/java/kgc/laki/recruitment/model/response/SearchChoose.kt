@@ -1,5 +1,7 @@
 package kgc.laki.recruitment.model.response
 
+import kgc.laki.recruitment.model.SearchBean
+
 class SearchChoose {
 	lateinit var query: String//关键字
 	lateinit var city: List<String>//城市 单选
@@ -11,4 +13,5 @@ class SearchChoose {
 	lateinit var gx: List<String>//工作性质 应届、实习 单选
 	lateinit var yx: List<String>//月薪 2k以下、2k-5k、5k-10k、10k-15k、15-25k、25k-50k、50k以上
 	lateinit var px: List<String>//排序 默认[default]、最新[new]
+	lateinit var searchBean: SearchBean
 }
