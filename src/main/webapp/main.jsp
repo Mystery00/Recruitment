@@ -24,8 +24,8 @@
         <a href="index" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">home</i></a>
         <span class="mdui-typo-title">拉勾 - 第三方版</span>
         <div class="mdui-toolbar-spacer"></div>
-        <a href="javascript:;" class="mdui-btn mdui-ripple">登录</a>
-        <a href="javascript:;" class="mdui-btn mdui-ripple">注册</a>
+        <a href="javascript:;" class="mdui-ripple">登录</a>
+        <a href="javascript:;" class="mdui-ripple">注册</a>
     </div>
 </div>
 <div class="mdui-container">

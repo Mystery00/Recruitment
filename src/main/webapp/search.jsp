@@ -10,6 +10,17 @@
 <html>
 <head>
     <title>搜索</title>
+    <style>
+        .onSelected:hover {
+            background-color: #0d47a1;
+            color: white;
+        }
+
+        .selected {
+            background-color: #0d47a1;
+            color: white;
+        }
+    </style>
 </head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
 <%
@@ -22,23 +33,33 @@
         <a href="index" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">home</i></a>
         <span class="mdui-typo-title">拉勾 - 第三方版</span>
         <div class="mdui-toolbar-spacer"></div>
-        <a href="javascript:;" class="mdui-btn mdui-ripple">登录</a>
-        <a href="javascript:;" class="mdui-btn mdui-ripple">注册</a>
+        <a href="javascript:;" class="mdui-ripple">登录</a>
+        <a href="javascript:;" class="mdui-ripple">注册</a>
     </div>
 </div>
-<div class="mdui-container">
-    <div>
-        <span class="mdui-text-color-theme">工作地点：</span>
-        <%
-            for (String city : searchChoose.city) {
-        %>
-        <label class="mdui-radio">
-            <input type="radio" name="group1"/>
-            <i class="mdui-radio-icon"></i><%=city%>
-        </label>
-        <%
-            }
-        %>
+<div class="mdui-container" style="margin-top: 20px">
+    <div class="mdui-textfield">
+        <form action="doSearch" method="post">
+            <i class="mdui-icon material-icons">search</i>
+            <input class="mdui-textfield-input" type="text" placeholder="Search" name="query"
+                   value="<%=searchChoose.searchBean.query%>"/>
+        </form>
+    </div>
+    <div class="mdui-card">
+        <div class="mdui-card-content">
+            <div>
+                <span class="mdui-text-color-theme">工作地点：</span>
+                <%
+                    for (String city : searchChoose.city) {
+                %>
+                <a href="doSearch?query=<%=searchChoose.query%>&city=<%=city%>"><span
+                        class="<%=city.equals(searchChoose.searchBean.city)?"onSelected selected":"onSelected"%>"
+                        style="padding: 8px"><%=city%></span></a>
+                <%
+                    }
+                %>
+            </div>
+        </div>
     </div>
     <div class="mdui-typo">
         <hr/>

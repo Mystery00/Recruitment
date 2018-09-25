@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletResponse
 class SearchServlet : BaseServlet() {
 	override fun doAction(request: HttpServletRequest, response: HttpServletResponse) {
 		val query = request.getParameter("query")
+		val city = request.getParameter("city")?:"全国"
 		try {
-			SearchRepository.doSearch(request, query)
+			SearchRepository.doSearch(request, query, city)
 		} catch (e: KGCException) {
 			SessionUtil.setException(request, e)
 			response.sendRedirect("error.jsp")
+			return
 		}
 		response.sendRedirect("search.jsp")
 	}

@@ -5,7 +5,7 @@ import kgc.laki.recruitment.model.SearchBean
 import kgc.laki.recruitment.model.response.SearchChoose
 
 interface SearchDataSource {
-	fun getSearchChoose(query: String?, searchBean: SearchBean, html: String?): SearchChoose
+	fun getSearchChoose(query: String, searchBean: SearchBean, html: String?): SearchChoose
 
-	fun getCompanyJob(query: String?, searchBean: SearchBean, html: String?): List<CompanyJob>
+	fun getCompanyJob(query: String, searchBean: SearchBean): List<CompanyJob>
 }

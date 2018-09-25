@@ -18,6 +18,7 @@ class IndexServlet : BaseServlet() {
 		} catch (e: KGCException) {
 			SessionUtil.setException(request, e)
 			response.sendRedirect("error.jsp")
+			return
 		}
 		response.sendRedirect("main.jsp")
 	}

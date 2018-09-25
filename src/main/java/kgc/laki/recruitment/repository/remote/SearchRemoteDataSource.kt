@@ -16,7 +16,7 @@ import java.lang.Exception
 import java.util.ArrayList
 
 object SearchRemoteDataSource : SearchDataSource {
-	override fun getSearchChoose(query: String?, searchBean: SearchBean, html: String?): SearchChoose {
+	override fun getSearchChoose(query: String, searchBean: SearchBean, html: String?): SearchChoose {
 		val searchChoose = SearchChoose()
 		try {
 			val doc = Jsoup.parse(html)
@@ -30,6 +30,7 @@ object SearchRemoteDataSource : SearchDataSource {
 			val item_order = order.select(".wrapper")[0]
 			val order_px = item_order.select(".order")[0]
 			val salary = item_order.select(".salary")[0]
+			searchChoose.query = query
 			searchChoose.city = getCity(city)
 			searchChoose.isSchoolJob = true
 			searchChoose.gx = getChoose(multi_chosen[0])
@@ -47,7 +48,7 @@ object SearchRemoteDataSource : SearchDataSource {
 		return searchChoose
 	}
 
-	override fun getCompanyJob(query: String?, searchBean: SearchBean, html: String?): List<CompanyJob> {
+	override fun getCompanyJob(query: String, searchBean: SearchBean): List<CompanyJob> {
 		val companyJobList = ArrayList<CompanyJob>()
 		val firstResponse = RetrofitFactory.laGouGetResultFirstRetrofit
 				.create(LaGouAPI::class.java)
@@ -57,7 +58,7 @@ object SearchRemoteDataSource : SearchDataSource {
 			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
 		val apiResponse = RetrofitFactory.laGouRetrofit
 				.create(LaGouAPI::class.java)
-				.getSearchResult(2, query!!)
+				.getSearchResult(1, query!!)
 				.execute()
 		if (!apiResponse.isSuccessful)
 			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)

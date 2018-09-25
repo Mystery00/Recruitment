@@ -11,24 +11,21 @@ import javax.servlet.http.HttpServletRequest
 
 object SearchRepository {
 	fun doSearch(request: HttpServletRequest,
-				 query: String) = doSearch(request, query, "全国", true, arrayOf("不限"), arrayOf("不限"), arrayOf("不限"), arrayOf("不限"), "不限", "不限", "默认")
-
-	fun doSearch(request: HttpServletRequest,
 				 query: String,
 				 city: String,//城市
-				 isSchoolJob: Boolean,//是否是校招
-				 gm: Array<String>,//公司规模
-				 hy: Array<String>,//行业领域
-				 jd: Array<String>,//融资阶段
-				 xl: Array<String>,//学历要求
-				 gx: String,//工作性质
-				 yx: String,//月薪
-				 px: String//排序
+				 isSchoolJob: Boolean = true,//是否是校招
+				 gm: Array<String> = arrayOf("不限"),//公司规模
+				 hy: Array<String> = arrayOf("不限"),//行业领域
+				 jd: Array<String> = arrayOf("不限"),//融资阶段
+				 xl: Array<String> = arrayOf("不限"),//学历要求
+				 gx: String = "不限",//工作性质
+				 yx: String = "不限",//月薪
+				 px: String = "default"//排序
 	) {
 		val searchBean = getSearchBean(query, city, isSchoolJob, gm, hy, jd, xl, gx, yx, px)
 		val html = doSearch(searchBean)
 		val searchChoose = SearchRemoteDataSource.getSearchChoose(query, searchBean, html)
-		val companyJob = SearchRemoteDataSource.getCompanyJob(query, searchBean, html)
+		val companyJob = SearchRemoteDataSource.getCompanyJob(query, searchBean)
 		SessionUtil.setSearchChoose(request, searchChoose)
 		SessionUtil.setCompanyJob(request, companyJob)
 	}
