@@ -10,7 +10,8 @@ abstract class BaseServlet(private val isAllowPost: Boolean = true,
 						   private val isAllowGet: Boolean = true) : HttpServlet() {
 	abstract fun doAction(request: HttpServletRequest, response: HttpServletResponse)
 
-	fun initResponseWriter(response: HttpServletResponse) {
+	private fun initServlet(request: HttpServletRequest, response: HttpServletResponse) {
+		request.characterEncoding = "UTF-8"
 		response.characterEncoding = "UTF-8"//设置Response的编码方式为UTF-8
 		response.setHeader("Content-type", "text/html;charset=UTF-8")
 	}
@@ -18,12 +19,14 @@ abstract class BaseServlet(private val isAllowPost: Boolean = true,
 	@Throws(ServletException::class, IOException::class)
 	override
 	fun doPost(request: HttpServletRequest, response: HttpServletResponse) {
+		initServlet(request, response)
 		if (isAllowPost)
 			doAction(request, response)
 	}
 
 	@Throws(ServletException::class, IOException::class)
 	override fun doGet(request: HttpServletRequest, response: HttpServletResponse) {
+		initServlet(request, response)
 		if (isAllowGet)
 			doAction(request, response)
 	}

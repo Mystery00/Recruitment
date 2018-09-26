@@ -10,7 +10,6 @@ class LoadCookiesInterceptor : Interceptor {
 		if (request.url().toString().contains("/jobs/positionAjax.json")) {
 			val saveCookie = CookieManager.getCookieMap("a.lagou.com")
 			if (saveCookie != null) {
-				println("load cookie")
 				val cookies = arrayListOf(
 						saveCookie["user_trace_token"],
 						"_ga=GA1.2.1287771199.1537693195",

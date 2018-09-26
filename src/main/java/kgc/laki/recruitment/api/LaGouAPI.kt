@@ -20,14 +20,15 @@ interface LaGouAPI {
 			   @Query("jd") jd: String,//融资阶段
 			   @Query("xl") xl: String,//学历要求
 			   @Query("gx") gx: String,//工作性质
+			   @Query("gj") gj: String,//工作经验
 			   @Query("yx") yx: String,//月薪
 			   @Query("px") px: String//排序
 	): Call<ResponseBody>
 
 	@GET("/collect")
-	fun getSearchResultFirst():Call<ResponseBody>
+	fun getSearchResultFirst(): Call<ResponseBody>
 
 	@FormUrlEncoded
-	@POST("/jobs/positionAjax.json?needAddtionalResult=false")
-	fun getSearchResult(@Field("pn") page: Int, @Field("kd") query: String, @Field("first") first: String = "false"): Call<ResponseBody>
+	@POST("/jobs/positionAjax.json")
+	fun getSearchResult(@Field("pn") page: Int, @Field("kd") query: String, @Query("px") px: String, @Query("city") city: String, @Query("needAddtionalResult") needAddtionalResult: String = "false", @Field("first") first: String = "false"): Call<ResponseBody>
 }

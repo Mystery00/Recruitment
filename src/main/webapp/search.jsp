@@ -42,7 +42,7 @@
         <form action="doSearch" method="post">
             <i class="mdui-icon material-icons">search</i>
             <input class="mdui-textfield-input" type="text" placeholder="Search" name="query"
-                   value="<%=searchChoose.searchBean.query%>"/>
+                   value="<%=searchChoose.query%>"/>
         </form>
     </div>
     <div class="mdui-card">
@@ -52,13 +52,46 @@
                 <%
                     for (String city : searchChoose.city) {
                 %>
-                <a href="doSearch?query=<%=searchChoose.query%>&city=<%=city%>"><span
+                <a href="appendSearch?city=<%=city%>"><span
                         class="<%=city.equals(searchChoose.searchBean.city)?"onSelected selected":"onSelected"%>"
                         style="padding: 8px"><%=city%></span></a>
                 <%
                     }
                 %>
             </div>
+            <%
+                if (searchChoose.isSchoolJob()) {
+            %>
+            <div>
+                <span class="mdui-text-color-theme">工作性质：</span>
+                <%
+                    for (String x : searchChoose.gx) {
+                %>
+                <a href="appendSearch?gx=<%=x%>"><span
+                        class="<%=x.equals(searchChoose.searchBean.gx)?"onSelected selected":"onSelected"%>"
+                        style="padding: 8px"><%=x%></span></a>
+                <%
+                    }
+                %>
+            </div>
+            <%
+            } else {
+            %>
+            <div>
+                <span class="mdui-text-color-theme">工作经验：</span>
+                <%
+                    for (String exp : searchChoose.gj) {
+                %>
+                <a href="appendSearch?gj=<%=exp%>"><span
+                        class="<%=searchChoose.searchBean.gj.contains(exp)?"onSelected selected":"onSelected"%>"
+                        style="padding: 8px"><%=exp%></span></a>
+                <%
+                    }
+                %>
+            </div>
+            <%
+                }
+            %>
         </div>
     </div>
     <div class="mdui-typo">

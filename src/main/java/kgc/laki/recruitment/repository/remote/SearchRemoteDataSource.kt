@@ -32,8 +32,14 @@ object SearchRemoteDataSource : SearchDataSource {
 			val salary = item_order.select(".salary")[0]
 			searchChoose.query = query
 			searchChoose.city = getCity(city)
-			searchChoose.isSchoolJob = true
-			searchChoose.gx = getChoose(multi_chosen[0])
+			searchChoose.isSchoolJob = searchBean.isSchoolJob == 1
+			if (searchChoose.isSchoolJob) {
+				searchChoose.gx = getChoose(multi_chosen[0])
+				searchChoose.gj = emptyList()
+			} else {
+				searchChoose.gj = getChoose(multi_chosen[0])
+				searchChoose.gx = emptyList()
+			}
 			searchChoose.xl = getChoose(multi_chosen[1])
 			searchChoose.jd = getChoose(multi_chosen[2])
 			searchChoose.gm = getChoose(multi_chosen[3])
@@ -58,19 +64,18 @@ object SearchRemoteDataSource : SearchDataSource {
 			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
 		val apiResponse = RetrofitFactory.laGouRetrofit
 				.create(LaGouAPI::class.java)
-				.getSearchResult(1, query!!)
+				.getSearchResult(1, query, searchBean.px, searchBean.city)
 				.execute()
 		if (!apiResponse.isSuccessful)
 			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
 		val jsonString = apiResponse.body()?.string()
 				?: throw KGCException(ExceptionCodeConstant.J_ERROR_EMPTY_RESPONSE)
-		println(jsonString)
 		try {
 			val companyJobResponse = GsonFactory.gson.fromJson<CompanyJobResponse>(jsonString, CompanyJobResponse::class.java)
 			companyJobResponse.content.positionResult.result.forEach {
 				val companyJob = CompanyJob()
 				companyJob.jobName = it.positionName
-				companyJob.location = "${it.city}·${it.district}"
+				companyJob.location = "${it.city}${if (it.district == null) "" else "·${it.district}"}"
 				companyJob.publishTime = it.formatCreateTime
 				companyJob.money = it.salary
 				companyJob.exp = it.workYear

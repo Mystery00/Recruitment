@@ -8,13 +8,14 @@
 <head>
     <title>数据出错了~</title>
     <script>
-        var dialog = document.getElementById("hint_dialog");
+        var dialog = new mdui.Dialog('#hint_dialog');
         dialog.addEventListener('closed.mdui.dialog', function () {
             window.location.href = 'index'
         });
         dialog.addEventListener('confirm.mdui.dialog', function () {
             window.location.href = 'index'
         });
+        dialog.open();
     </script>
 </head>
 <body>

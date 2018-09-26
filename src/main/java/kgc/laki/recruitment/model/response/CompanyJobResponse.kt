@@ -102,7 +102,7 @@ class CompanyJobResponse {
 				lateinit var jobNature: String
 				var publisherId: Int = 0
 				var score: Int = 0
-				lateinit var district: String
+				var district: String? = null
 				lateinit var businessZones: Any
 				lateinit var longitude: String
 				lateinit var latitude: String
