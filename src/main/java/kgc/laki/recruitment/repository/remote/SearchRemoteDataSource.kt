@@ -97,6 +97,8 @@ object SearchRemoteDataSource : SearchDataSource {
 				companyJob.personNum = it.companySize
 				companyJob.temptation = it.positionAdvantage
 				companyJob.companyImgUrl = "https://www.lgstatic.com/thumbnail_120x120/${it.companyLogo}"
+				companyJob.positionID = it.positionId.toString()
+				companyJob.companyID = it.companyId.toString()
 				companyJobList.add(companyJob)
 			}
 		} catch (e: Exception) {

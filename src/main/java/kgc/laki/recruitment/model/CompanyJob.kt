@@ -17,4 +17,7 @@ class CompanyJob : Serializable {
 	lateinit var personNum: String//公司规模
 	lateinit var temptation: String//职业诱惑
 	lateinit var companyImgUrl: String// 大小 60x60
+
+	lateinit var positionID: String//用于下一次请求
+	lateinit var companyID: String//用于下一次请求
 }

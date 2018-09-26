@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest
 object SearchRepository {
 	fun doSearch(request: HttpServletRequest,
 				 searchBean: SearchBean) {
-		println("doSearch: $searchBean")
 		val html = doSearch(searchBean)
 		val searchChoose = SearchRemoteDataSource.getSearchChoose(searchBean.query, searchBean, html)
 		val companyJob = SearchRemoteDataSource.getCompanyJob(searchBean.query, searchBean)
@@ -45,7 +44,6 @@ object SearchRepository {
 		searchBean.gj = gj
 		searchBean.yx = yx
 		searchBean.px = px
-		println("getSearchBean: $searchBean")
 		return searchBean
 	}
 

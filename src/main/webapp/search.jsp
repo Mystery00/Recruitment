@@ -10,17 +10,6 @@
 <html>
 <head>
     <title>搜索</title>
-    <style>
-        .onSelected:hover {
-            background-color: #0d47a1;
-            color: white;
-        }
-
-        .selected {
-            background-color: #0d47a1;
-            color: white;
-        }
-    </style>
 </head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
 <%
@@ -33,18 +22,21 @@
         <a href="index" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">home</i></a>
         <span class="mdui-typo-title">拉勾 - 第三方版</span>
         <div class="mdui-toolbar-spacer"></div>
+        <div class="mdui-textfield mdui-textfield-expandable mdui-textfield-expanded mdui-float-right">
+            <form class="mdui-valign" action="doSearch" method="post">
+                <i class="mdui-icon material-icons mdui-textfield-icon mdui-valign">search</i>
+                <input style="margin-top:8px; border-bottom-color: white;!important; border-bottom-width: 2px"
+                       class="mdui-textfield-input mdui-text-color-white"
+                       type="text" placeholder="Search" name="query"
+                       value="<%=searchChoose.query%>"/>
+                <i class="mdui-icon material-icons mdui-textfield-close mdui-valign">close</i>
+            </form>
+        </div>
         <a href="javascript:;" class="mdui-ripple">登录</a>
         <a href="javascript:;" class="mdui-ripple">注册</a>
     </div>
 </div>
 <div class="mdui-container" style="margin-top: 20px">
-    <div class="mdui-textfield">
-        <form action="doSearch" method="post">
-            <i class="mdui-icon material-icons">search</i>
-            <input class="mdui-textfield-input" type="text" placeholder="Search" name="query"
-                   value="<%=searchChoose.query%>"/>
-        </form>
-    </div>
     <div class="mdui-card">
         <div class="mdui-card-content">
             <div>
@@ -159,7 +151,8 @@
                 <div class="mdui-row mdui-row-gapless">
                     <div class="mdui-col-xs-6">
                         <div class="mdui-list-item-title">
-                            <span class="mdui-text-color-theme"><%=companyJob.jobName%>[<%=companyJob.location%>]</span>
+                            <span class="mdui-text-color-theme"><a
+                                    href="getJobInfo?positionID=<%=companyJob.positionID%>"><%=companyJob.jobName%>[<%=companyJob.location%>]</a></span>
                             <small><%=companyJob.publishTime%>
                             </small>
                         </div>
@@ -182,7 +175,8 @@
                     </div>
                     <div class="mdui-col-xs-6">
                         <div class="mdui-list-item-title">
-                            <span class="mdui-text-color-theme"><%=companyJob.companyName%></span>
+                            <span class="mdui-text-color-theme"><a
+                                    href="getCompanyInfo?companyID=<%=companyJob.companyID%>"><%=companyJob.companyName%></a></span>
                         </div>
                         <div class="mdui-list-item-text mdui-list-item-one-line">
                             <%=companyJob.hy%> / <%=companyJob.jd%> / <%=companyJob.personNum%>
@@ -195,7 +189,7 @@
                 </div>
             </div>
             <div><img src="<%=companyJob.companyImgUrl%>" width="60"
-                      height="60"/></div>
+                      height="60" class="mdui-img-rounded"/></div>
         </li>
         <li class="mdui-divider mdui-m-y-0"></li>
         <%
@@ -211,6 +205,7 @@
     </div>
 </div>
 <link rel="stylesheet" href="//cdnjs.loli.net/ajax/libs/mdui/0.4.1/css/mdui.min.css">
+<link rel="stylesheet" href="css/search.css">
 <script src="//cdnjs.loli.net/ajax/libs/mdui/0.4.1/js/mdui.min.js"></script>
 </body>
 </html>

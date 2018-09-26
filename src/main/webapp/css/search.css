@@ -1,0 +1,13 @@
+.mdui-textfield-expandable.mdui-textfield-expanded {
+    width: 60%;
+}
+
+.onSelected:hover {
+    background-color: #0d47a1;
+    color: white;
+}
+
+.selected {
+    background-color: #0d47a1;
+    color: white;
+}

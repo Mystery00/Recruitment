@@ -42,4 +42,7 @@ interface LaGouAPI {
 						@Query("hy") hy: String = "",
 						@Query("needAddtionalResult") needAddtionalResult: String = "false",
 						@Field("first") first: String = "false"): Call<ResponseBody>
+
+	@GET("/jobs/{id}.html")
+	fun getJobInfo(@Path("id") id: String): Call<ResponseBody>
 }

@@ -30,8 +30,4 @@ class SearchBean : Serializable {
 		if (px == "最新") searchBean.px = "new" else searchBean.px = "default"
 		return searchBean
 	}
-
-	override fun toString(): String {
-		return "SearchBean(query='$query', city='$city', isSchoolJob=$isSchoolJob, gm='$gm', hy='$hy', jd='$jd', xl='$xl', gj='$gj', gx='$gx', yx='$yx', px='$px')"
-	}
 }

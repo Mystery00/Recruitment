@@ -65,8 +65,7 @@
             for (KeywordCategory keywordCategory : keywordCategoryList) {
         %>
         <div id="<%=keywordCategory.category%>">
-            <div class="mdui-panel mdui-panel-popout mdui-p-a-2"
-                 mdui-panel>
+            <div class="mdui-panel mdui-panel-popout mdui-p-a-2" mdui-panel>
                 <%
                     for (KeywordGroup keywordGroup : keywordCategory.keywordGroupList) {
                 %>
