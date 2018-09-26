@@ -39,7 +39,7 @@
         <%
             for (HotSearch hotSearch : hotSearchList) {
         %>
-        <div class="mdui-chip"><a href="<%=hotSearch.href%>"><span
+        <div class="mdui-chip"><a href="doSearch?query=<%=hotSearch.value%>"><span
                 class="mdui-chip-title mdui-text-color-theme"><%=hotSearch.value%></span></a>
         </div>
         <%
@@ -80,7 +80,7 @@
                         <%
                             for (Keyword keyword : keywordGroup.keywordList) {
                         %>
-                        <div class="mdui-chip"><a href="<%=keyword.href%>"><span
+                        <div class="mdui-chip"><a href="doSearch?query=<%=keyword.value%>"><span
                                 class="mdui-chip-title mdui-text-color-theme"><%=keyword.value%></span></a>
                         </div>
                         <%
