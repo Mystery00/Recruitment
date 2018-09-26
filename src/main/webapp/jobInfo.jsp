@@ -6,7 +6,7 @@
   Time: 14:37
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <%
@@ -25,7 +25,7 @@
         <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
             <form class="mdui-valign" action="doSearch" method="post">
                 <i class="mdui-icon material-icons mdui-textfield-icon mdui-valign">search</i>
-                <input style="margin-top:8px; border-bottom-color: white;!important; border-bottom-width: 2px"
+                <input style="margin-top:8px; border-bottom-color: white;box-shadow: rgba(0, 0, 0, 0.87) 0 0 0 0;"
                        class="mdui-textfield-input mdui-text-color-white my-textfield-input"
                        type="text" placeholder="Search" name="query"/>
                 <i class="mdui-icon material-icons mdui-textfield-close mdui-valign">close</i>
@@ -36,10 +36,10 @@
     </div>
 </div>
 <div class="mdui-container" style="margin-top: 20px">
-    <div class="mdui-card">
-        <div class="mdui-typo-display-2 mdui-card-header"><%=jobInfo.jobName%>
+    <div class="mdui-card mdui-row">
+        <div class="mdui-typo-display-2 mdui-card-header mdui-col-xs-8"><%=jobInfo.jobName%>
         </div>
-        <div class="mdui-card-content">
+        <div class="mdui-card-content mdui-col-xs-8">
             <div class="mdui-typo-subheading">
                 <p><span
                         class="mdui-text-color-red"><%=jobInfo.salary%></span><%=jobInfo.city%><%=jobInfo.exp%><%=jobInfo.grade%><%=jobInfo.gx%>
@@ -49,13 +49,45 @@
                 <%
                     for (String tag : jobInfo.tag) {
                 %>
-                <div class="mdui-chip"><span class="mdui-chip-title"><%=tag%></span></div>
+                <div class="mdui-chip"><span class="mdui-chip-title mdui-text-color-theme"><%=tag%></span></div>
                 <%
                     }
                 %>
             </div>
-            <div class="mdui-typo-subheading"><p><%=jobInfo.publishTIme%>
+            <div class="mdui-typo-subheading"><p><%=jobInfo.publishTIme%> 发布在拉勾网
             </p></div>
+        </div>
+        <div class="mdui-card-content  mdui-col-xs-4">
+            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">收藏</button>
+        </div>
+    </div>
+    <br>
+    <div class="mdui-row">
+        <div class="mdui-card mdui-col-xs-7">
+
+        </div>
+        <div class="mdui-card mdui-col-xs-4">
+            <div class="mdui-card-media" style="margin-top: 16px"><img
+                    class="mdui-img-rounded mdui-center"
+                    style="width: 100px"
+                    src="<%=jobInfo.companyIconUrl%>" width="100"
+                    height="100"></div>
+            <div class="mdui-card-primary">
+                <div class="mdui-text-center mdui-typo-display-1"><%=jobInfo.companyName%>
+                </div>
+            </div>
+            <div class="mdui-card-content">
+                <div class="mdui-typo-subheading"><p>公司领域：<%=jobInfo.companyHY%>
+                </p></div>
+                <div class="mdui-typo-subheading"><p>融资阶段：<%=jobInfo.jd%>
+                </p></div>
+                <div class="mdui-typo-subheading"><p>公司规模：<%=jobInfo.gm%>
+                </p></div>
+                <div class="mdui-typo-subheading"><p>公司主页：<a
+                        href="<%=jobInfo.companyWebsite%>"><%=jobInfo.companyWebsite%>
+                </a>
+                </p></div>
+            </div>
         </div>
     </div>
 </div>

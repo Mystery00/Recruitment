@@ -24,6 +24,23 @@ object GetJobInfoRemoteDataSource : GetJobInfoDataSource {
 		val publish_time = job_request.select(".publish_time")[0].text().split(" ")
 		val list = publish_time.filter { it != "" }
 		jobInfo.publishTIme = list[0]
+		val job_detail = doc.select("#job_detail")[0]
+		val job_advantage = job_detail.select(".job-advantage")[0]
+		jobInfo.temptation = job_advantage.select("p")[0].text()
+		val job_bt = job_detail.select(".job_bt")[0]
+//		jobInfo.description=Jsoup.parse(job)
+		val job_company = doc.select("#job_company")[0]
+		val dt = job_company.select("dt")[0]
+		jobInfo.companyIconUrl = dt.select("img")[0].attr("src")
+		jobInfo.companyName = dt.select("h2")[0].text().trim().split(" ")[0]
+		val lagouUrl = dt.select("a")[0].attr("href")
+		jobInfo.companyID = "http:" + lagouUrl.substring(lagouUrl.lastIndexOf('/') + 1, lagouUrl.lastIndexOf('.'))
+		val dd = job_company.select(".c_feature")[0]
+		val lis = dd.select("li")
+		jobInfo.companyHY = lis[0].text().split(" ")[0]
+		jobInfo.jd = lis[1].text().split(" ")[0]
+		jobInfo.gm = lis[lis.size - 2].text().split(" ")[0]
+		jobInfo.companyWebsite = lis[lis.size - 1].select("a")[0].attr("href")
 		return jobInfo
 	}
 }

@@ -25,7 +25,7 @@
         <div class="mdui-textfield mdui-textfield-expandable mdui-textfield-expanded mdui-float-right">
             <form class="mdui-valign" action="doSearch" method="post">
                 <i class="mdui-icon material-icons mdui-textfield-icon mdui-valign">search</i>
-                <input style="margin-top:8px; border-bottom-color: white;!important; border-bottom-width: 2px"
+                <input style="margin-top:8px; border-bottom-color: white;box-shadow: rgba(0, 0, 0, 0.87) 0 0 0 0;"
                        class="mdui-textfield-input mdui-text-color-white"
                        type="text" placeholder="Search" name="query"
                        value="<%=searchChoose.query%>"/>
