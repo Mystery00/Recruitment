@@ -30,5 +30,16 @@ interface LaGouAPI {
 
 	@FormUrlEncoded
 	@POST("/jobs/positionAjax.json")
-	fun getSearchResult(@Field("pn") page: Int, @Field("kd") query: String, @Query("px") px: String, @Query("city") city: String, @Query("needAddtionalResult") needAddtionalResult: String = "false", @Field("first") first: String = "false"): Call<ResponseBody>
+	fun getSearchResult(@Field("pn") page: Int,
+						@Field("kd") query: String,
+						@Query("px") px: String,
+						@Query("city") city: String,
+						@Query("gj") gj: String = "",
+						@Query("gx") gx: String = "",
+						@Query("xl") xl: String = "",
+						@Query("jd") jd: String = "",
+						@Query("gm") gm: String = "",
+						@Query("hy") hy: String = "",
+						@Query("needAddtionalResult") needAddtionalResult: String = "false",
+						@Field("first") first: String = "false"): Call<ResponseBody>
 }

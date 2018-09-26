@@ -59,6 +59,7 @@
                     }
                 %>
             </div>
+            <br>
             <%
                 if (searchChoose.isSchoolJob()) {
             %>
@@ -92,6 +93,58 @@
             <%
                 }
             %>
+            <br>
+            <div>
+                <span class="mdui-text-color-theme">学历要求：</span>
+                <%
+                    for (String xl : searchChoose.xl) {
+                %>
+                <a href="appendSearch?xl=<%=xl%>"><span
+                        class="<%=searchChoose.searchBean.xl.contains(xl)?"onSelected selected":"onSelected"%>"
+                        style="padding: 8px"><%=xl%></span></a>
+                <%
+                    }
+                %>
+            </div>
+            <br>
+            <div>
+                <span class="mdui-text-color-theme">融资阶段：</span>
+                <%
+                    for (String jd : searchChoose.jd) {
+                %>
+                <a href="appendSearch?jd=<%=jd%>"><span
+                        class="<%=searchChoose.searchBean.jd.contains(jd)?"onSelected selected":"onSelected"%>"
+                        style="padding: 8px"><%=jd%></span></a>
+                <%
+                    }
+                %>
+            </div>
+            <br>
+            <div>
+                <span class="mdui-text-color-theme">公司规模：</span>
+                <%
+                    for (String gm : searchChoose.gm) {
+                %>
+                <a href="appendSearch?gm=<%=gm%>"><span
+                        class="<%=searchChoose.searchBean.gm.contains(gm)?"onSelected selected":"onSelected"%>"
+                        style="padding: 8px"><%=gm%></span></a>
+                <%
+                    }
+                %>
+            </div>
+            <br>
+            <div>
+                <span class="mdui-text-color-theme">行业领域：</span>
+                <%
+                    for (String hy : searchChoose.hy) {
+                %>
+                <a href="appendSearch?hy=<%=hy%>"><span
+                        class="<%=searchChoose.searchBean.hy.contains(hy)?"onSelected selected":"onSelected"%>"
+                        style="padding: 8px"><%=hy%></span></a>
+                <%
+                    }
+                %>
+            </div>
         </div>
     </div>
     <div class="mdui-typo">

@@ -1,8 +1,9 @@
 package kgc.laki.recruitment.model.response
 
 import kgc.laki.recruitment.model.SearchBean
+import java.io.Serializable
 
-class SearchChoose {
+class SearchChoose : Serializable {
 	lateinit var query: String//关键字
 	lateinit var city: List<String>//城市 单选
 	var isSchoolJob: Boolean = true//是否是校招 是-1 否-0 单选

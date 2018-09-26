@@ -1,6 +1,8 @@
 package kgc.laki.recruitment.model
 
-class SearchBean {
+import java.io.Serializable
+
+class SearchBean : Serializable {
 	lateinit var query: String//关键字
 	lateinit var city: String//城市 单选
 	var isSchoolJob: Int = 0//是否是校招 是-1 否-0 单选
@@ -13,15 +15,20 @@ class SearchBean {
 	lateinit var yx: String//月薪 2k以下、2k-5k、5k-10k、10k-15k、15-25k、25k-50k、50k以上
 	lateinit var px: String//排序 默认[default]、最新[new]
 
-	fun toDoSearch() {
-		if (gm == "不限") gm = ""
-		if (hy == "不限") hy = ""
-		if (jd == "不限") jd = ""
-		if (xl == "不限") xl = ""
-		if (gj == "不限") gj = ""
-		if (gx == "不限") gx = ""
-		if (yx == "不限") yx = ""
-		px = if (px == "最新") "new" else "default"
+	fun toDoSearch(): SearchBean {
+		val searchBean = SearchBean()
+		searchBean.query = query
+		searchBean.city = city
+		searchBean.isSchoolJob = isSchoolJob
+		if (gm == "不限") searchBean.gm = "" else searchBean.gm = gm
+		if (hy == "不限") searchBean.hy = "" else searchBean.hy = hy
+		if (jd == "不限") searchBean.jd = "" else searchBean.jd = jd
+		if (xl == "不限") searchBean.xl = "" else searchBean.xl = xl
+		if (gj == "不限") searchBean.gj = "" else searchBean.gj = gj
+		if (gx == "不限") searchBean.gx = "" else searchBean.gx = gx
+		if (yx == "不限") searchBean.yx = "" else searchBean.yx = yx
+		if (px == "最新") searchBean.px = "new" else searchBean.px = "default"
+		return searchBean
 	}
 
 	override fun toString(): String {

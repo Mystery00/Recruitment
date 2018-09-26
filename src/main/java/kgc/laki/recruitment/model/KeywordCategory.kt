@@ -1,6 +1,8 @@
 package kgc.laki.recruitment.model
 
-class KeywordCategory {
+import java.io.Serializable
+
+class KeywordCategory : Serializable {
 	lateinit var category: String
 	lateinit var keywordGroupList: List<KeywordGroup>
 }

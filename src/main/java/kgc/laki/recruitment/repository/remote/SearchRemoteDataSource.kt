@@ -55,6 +55,7 @@ object SearchRemoteDataSource : SearchDataSource {
 	}
 
 	override fun getCompanyJob(query: String, searchBean: SearchBean): List<CompanyJob> {
+		val formattedSearchBean = searchBean.toDoSearch()
 		val companyJobList = ArrayList<CompanyJob>()
 		val firstResponse = RetrofitFactory.laGouGetResultFirstRetrofit
 				.create(LaGouAPI::class.java)
@@ -64,13 +65,22 @@ object SearchRemoteDataSource : SearchDataSource {
 			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
 		val apiResponse = RetrofitFactory.laGouRetrofit
 				.create(LaGouAPI::class.java)
-				.getSearchResult(1, query, searchBean.px, searchBean.city)
+				.getSearchResult(1, query,
+						formattedSearchBean.px,
+						formattedSearchBean.city,
+						formattedSearchBean.gj,
+						formattedSearchBean.gx,
+						formattedSearchBean.xl,
+						formattedSearchBean.jd,
+						formattedSearchBean.gm,
+						formattedSearchBean.hy)
 				.execute()
 		if (!apiResponse.isSuccessful)
 			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
 		val jsonString = apiResponse.body()?.string()
 				?: throw KGCException(ExceptionCodeConstant.J_ERROR_EMPTY_RESPONSE)
 		try {
+			println(jsonString)
 			val companyJobResponse = GsonFactory.gson.fromJson<CompanyJobResponse>(jsonString, CompanyJobResponse::class.java)
 			companyJobResponse.content.positionResult.result.forEach {
 				val companyJob = CompanyJob()

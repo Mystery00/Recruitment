@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@WebServlet(name = "IndexServlet", urlPatterns = ["/","/index"])
+@WebServlet(name = "IndexServlet", urlPatterns = ["/index"])
 class IndexServlet : BaseServlet() {
 	override fun doAction(request: HttpServletRequest, response: HttpServletResponse) {
 		try {
