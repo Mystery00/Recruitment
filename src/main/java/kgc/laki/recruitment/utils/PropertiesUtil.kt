@@ -18,4 +18,6 @@ object PropertiesUtil {
 	}
 
 	fun getUrl(keyName: String): String = get("/url4request.properties", keyName)
+
+	fun getMysqlInfo(keyName: String): String = get("/mysql.properties", keyName)
 }

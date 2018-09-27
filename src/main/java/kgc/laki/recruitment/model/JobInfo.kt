@@ -3,6 +3,7 @@ package kgc.laki.recruitment.model
 import java.io.Serializable
 
 class JobInfo : Serializable {
+	var jobID: Int = 0
 	lateinit var jobName: String
 	lateinit var salary: String
 	lateinit var city: String

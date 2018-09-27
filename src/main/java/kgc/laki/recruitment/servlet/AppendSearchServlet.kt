@@ -117,9 +117,8 @@ class AppendSearchServlet : BaseServlet() {
 			SearchRepository.doSearch(request, searchBean)
 		} catch (e: Exception) {
 			when (e) {
-				is KGCException -> SessionUtil.setException(request, e)
 				is UnknownHostException -> SessionUtil.setException(request, KGCException(ExceptionCodeConstant.J_ERROR_INTERNET))
-				else -> SessionUtil.setException(request, KGCException(ExceptionCodeConstant.DONE, e.message))
+				else -> SessionUtil.setException(request, KGCException(e.localizedMessage))
 			}
 			response.sendRedirect("error.jsp")
 			return

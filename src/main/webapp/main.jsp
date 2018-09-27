@@ -2,8 +2,8 @@
 <%@ page import="kgc.laki.recruitment.model.HotSearch" %>
 <%@ page import="kgc.laki.recruitment.utils.SessionUtil" %>
 <%@ page import="kgc.laki.recruitment.model.KeywordGroup" %>
-<%@ page import="kgc.laki.recruitment.model.Keyword" %>
 <%@ page import="kgc.laki.recruitment.model.KeywordCategory" %>
+<%@ page import="kgc.laki.recruitment.utils.exception.KGCException" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     List<HotSearch> hotSearchList;
@@ -15,6 +15,15 @@
 </head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
 <%
+    KGCException kgcException = SessionUtil.INSTANCE.getException(request);
+    if (kgcException != null) {
+%>
+<script>
+    alert('数据可能出错啦~\n<%=kgcException.getMsg()%>');
+</script>
+<%
+        SessionUtil.INSTANCE.removeException(request);
+    }
     hotSearchList = SessionUtil.INSTANCE.getHotSearch(request);
     keywordCategoryList = SessionUtil.INSTANCE.getKeyWord(request);
 %>
@@ -22,7 +31,7 @@
 <div class="mdui-container-fluid">
     <div class="mdui-toolbar mdui-color-theme">
         <a href="index" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">home</i></a>
-        <span class="mdui-typo-title">拉勾 - 第三方版</span>
+        <span class="mdui-typo-title">包就业招聘网</span>
         <div class="mdui-toolbar-spacer"></div>
         <a href="javascript:;" class="mdui-ripple">登录</a>
         <a href="javascript:;" class="mdui-ripple">注册</a>
@@ -77,10 +86,10 @@
                     </div>
                     <div class="mdui-panel-item-body">
                         <%
-                            for (Keyword keyword : keywordGroup.keywordList) {
+                            for (String keyword : keywordGroup.keywordList) {
                         %>
-                        <div class="mdui-chip"><a href="doSearch?query=<%=keyword.value%>"><span
-                                class="mdui-chip-title mdui-text-color-theme"><%=keyword.value%></span></a>
+                        <div class="mdui-chip"><a href="doSearch?query=<%=keyword%>"><span
+                                class="mdui-chip-title mdui-text-color-theme"><%=keyword%></span></a>
                         </div>
                         <%
                             }

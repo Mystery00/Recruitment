@@ -2,6 +2,7 @@
 <%@ page import="kgc.laki.recruitment.model.response.SearchChoose" %>
 <%@ page import="kgc.laki.recruitment.model.CompanyJob" %>
 <%@ page import="kgc.laki.recruitment.utils.SessionUtil" %>
+<%@ page import="kgc.laki.recruitment.utils.exception.KGCException" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     SearchChoose searchChoose;
@@ -13,6 +14,15 @@
 </head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
 <%
+    KGCException kgcException = SessionUtil.INSTANCE.getException(request);
+    if (kgcException != null) {
+%>
+<script>
+    alert('数据可能出错啦~\n<%=kgcException.getMsg()%>');
+</script>
+<%
+        SessionUtil.INSTANCE.removeException(request);
+    }
     searchChoose = SessionUtil.INSTANCE.getSearchChoose(request);
     companyJobList = SessionUtil.INSTANCE.getCompanyJob(request);
 %>
@@ -20,7 +30,7 @@
 <div class="mdui-container-fluid">
     <div class="mdui-toolbar mdui-color-theme">
         <a href="index" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">home</i></a>
-        <span class="mdui-typo-title">拉勾 - 第三方版</span>
+        <span class="mdui-typo-title">包就业招聘网</span>
         <div class="mdui-toolbar-spacer"></div>
         <div class="mdui-textfield mdui-textfield-expandable mdui-textfield-expanded mdui-float-right">
             <form class="mdui-valign" action="doSearch" method="post">

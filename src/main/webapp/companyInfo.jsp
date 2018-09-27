@@ -1,9 +1,19 @@
 <%@ page import="kgc.laki.recruitment.utils.SessionUtil" %>
 <%@ page import="kgc.laki.recruitment.model.CompanyInfo" %>
+<%@ page import="kgc.laki.recruitment.utils.exception.KGCException" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <%
+        KGCException kgcException = SessionUtil.INSTANCE.getException(request);
+        if (kgcException != null) {
+    %>
+    <script>
+        alert('数据可能出错啦~\n<%=kgcException.getMsg()%>');
+    </script>
+    <%
+            SessionUtil.INSTANCE.removeException(request);
+        }
         CompanyInfo companyInfo = SessionUtil.INSTANCE.getCompanyInfo(request);
     %>
     <title><%=companyInfo.companyName%>
@@ -14,7 +24,7 @@
 <div class="mdui-container-fluid">
     <div class="mdui-toolbar mdui-color-theme">
         <a href="index" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">home</i></a>
-        <span class="mdui-typo-title">拉勾 - 第三方版</span>
+        <span class="mdui-typo-title">包就业招聘网</span>
         <div class="mdui-toolbar-spacer"></div>
         <div class="mdui-textfield mdui-textfield-expandable mdui-float-right">
             <form class="mdui-valign" action="doSearch" method="post">
@@ -36,7 +46,7 @@
         </div>
         <div class="mdui-col-xs-10">
             <div class="mdui-card-primary">
-                <a href="<%=companyInfo.companyUrl%>">
+                <a class="mdui-card-primary" href="<%=companyInfo.companyUrl%>">
                     <div class="mdui-card-primary-title"><%=companyInfo.companyName%>
                     </div>
                 </a>

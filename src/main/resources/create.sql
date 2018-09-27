@@ -1,83 +1,134 @@
 # 创建数据库
 CREATE DATABASE 'db_bjyzpw';
 
-# 表1——公司表：tb_company
-    公司id、公司名称、公司主页、公司领域、公司规模、发展阶段
-
-CREATE TABLE `db_bjyzpw`.`tb_company`  (
-  `c_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '公司id',
-  `c_name` text NOT NULL COMMENT '公司名称',
-  `c_home_url` varchar(255) NULL DEFAULT NULL COMMENT '公司主页',
-  `c_land` varchar(255) NULL DEFAULT NULL COMMENT '公司领域',
-  `c_num` text NULL COMMENT '公司规模',
-  `c_develope` varchar(255) NULL DEFAULT NULL COMMENT '发展阶段',
-  PRIMARY KEY (`c_id`)
+# 表1 - 热搜表
+create table db_bjyzpw.tb_hot_search (
+  hs_id    bigint(20) not null auto_increment, # id
+  hs_href  text       not null, # 热搜的跳转链接
+  hs_value text       not null, # 热搜显示名称
+  hs_date  text       not null, # 热搜存储日期
+  primary key (hs_id)
 );
+# 插入语句
+insert into db_bjyzpw.tb_hot_search (hs_href, hs_value, hs_date)
+values (?, ?, ?);
 
-# 表2——公司招聘职位表： tb_company_job
-#    id、公司名称、招聘职位名称、工作地点（城市名）、工作地址（更详细）、薪资、工作经验要求、职业诱惑、职位描述、学历要求、工作类型、关键词（数组）、发布时间、发布网站
+# 删除语句
+delete
+from db_bjyzpw.tb_hot_search
+where hs_date = ?;
 
-CREATE TABLE `db_bjyzpw`.`tb_company_job`  (
-  `cj_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '公司招聘职位id',
-  `cj_name` varchar(255) NOT NULL COMMENT '公司名称',
-  `cj_job_name` varchar(255) NULL COMMENT '招聘职位名称',
-  `cj_city` varchar(255) NULL COMMENT '工作地点（城市）',
-  `cj_location` varchar(255) NULL COMMENT '工作地址（详细地址）',
-  `cj_pay` varchar(255) NULL COMMENT '薪资',
-  `cj_exp` varchar(255) NULL COMMENT '工作经验要求',
-  `cj_temptation` varchar(255) NULL COMMENT '职业诱惑',
-  `cj_description` text NULL COMMENT '职业描述',
-  `cj_grade` varchar(255) NULL COMMENT '学历要求',
-  `cj_type` varchar(255) NULL COMMENT '工作类型cj_',
-  `cj_keyword` varchar(255) NULL COMMENT '关键词',
-  `cj_publish_time` datetime(0) NULL COMMENT '发布时间',
-  `cj_publish_website` varchar(255) NULL COMMENT '发布网站',
-  PRIMARY KEY (`cj_id`)
+# 查询语句
+select *
+from db_bjyzpw.tb_hot_search
+where hs_date = ?;
+
+# 表2 - 关键词表
+create table db_bjyzpw.tb_keyword (
+  k_id            bigint(20) not null auto_increment, # id
+  k_category      text       not null, # 分类名称
+  k_group         text       not null, # 分组名称
+  k_key_word_list text       not null, # 关键词列表
+  k_date          text       not null, # 存储日期
+  primary key (k_id)
 );
+# 插入语句
+insert into db_bjyzpw.tb_keyword (k_category, k_group, k_key_word_list, k_date)
+values (?, ?, ?, ?);
+# 删除语句
+delete
+from db_bjyzpw.tb_keyword
+where k_date = ?;
+# 查询语句
+select *
+from db_bjyzpw.tb_keyword;
 
-# 表3——关键词表： tb_keyword
-#    关键词id、关键词
-
-CREATE TABLE `db_bjyzpw`.`tb_keyword`  (
-  `k_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '关键词id',
-  `k_name` varchar(255) NOT NULL COMMENT '关键词',
-  PRIMARY KEY (`k_id`)
+# 表3 - 公司表
+create table db_bjyzpw.tb_company_info (
+  ci_id                  bigint(20) not null auto_increment, # id
+  ci_name                text       not null, # 公司名称
+  ci_company_icon_url    text       not null, # 公司图标地址
+  ci_company_url         text       not null, # 公司网址
+  ci_company_introduce   text       not null, # 公司简介
+  ci_labels              text       not null, # 公司标签
+  ci_introduction_string text       not null, # 公司介绍
+  ci_pictures            text       not null, # 公司介绍中的图片
+  ci_hy                  text       not null, # 行业领域
+  ci_gm                  text       not null, # 公司规模
+  ci_city                text       not null, # 城市
+  ci_jd                  text       not null, # 融资阶段
+  ci_location            text       not null, # 公司地点
+  primary key (ci_id)
 );
+# 插入语句
+insert into db_bjyzpw.tb_company_info (ci_id,
+                                       ci_name,
+                                       ci_company_icon_url,
+                                       ci_company_url,
+                                       ci_company_introduce,
+                                       ci_labels,
+                                       ci_introduction_string,
+                                       ci_pictures,
+                                       ci_hy,
+                                       ci_gm,
+                                       ci_city,
+                                       ci_jd,
+                                       ci_location)
+values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+# 查询语句
+select *
+from db_bjyzpw.tb_company_info
+where ci_id = ?;
 
-# 表4——用户表： tb_user
-#    用户id、用户名、密码、昵称
-
-CREATE TABLE `db_bjyzpw`.`tb_user`  (
-  `u_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `u_username` varchar(255) NOT NULL COMMENT '用户名',
-  `u_password` varchar(255) NOT NULL COMMENT '密码',
-  `u_name` varchar(255) NOT NULL COMMENT '昵称',
-  PRIMARY KEY (`u_id`)
+# 表4 - 职位表
+create table db_bjyzpw.tb_job_info (
+  ji_id               bigint(20) not null auto_increment, # id
+  ji_name             text       not null, # 职位名称
+  ji_salary           text       not null, # 薪资
+  ji_city             text       not null, # 工作城市
+  ji_exp              text       not null, # 工作经验
+  ji_grade            text       not null, # 学位
+  ji_gx               text       not null, # 工作性质
+  ji_tag              text       not null, # 标签
+  ji_temptation       text       not null, # 职业诱惑
+  ji_description      text       not null, # 职位描述
+  ji_word_address     text       not null, # 工作地址（详细）
+  ji_publish_time     text       not null, # 发布时间
+  ji_company_name     text       not null, # 公司名称
+  ji_company_icon_url text       not null, # 公司图标地址
+  ji_company_id       text       not null, # 公司id
+  ji_hy               text       not null, # 行业领域
+  ji_jd               text       not null, # 融资阶段
+  ji_gm               text       not null, # 公司规模
+  ji_company_website  text       not null, # 公司网址
+  primary key (ji_id)
 );
-
-# 表5——职位收藏表： tb_mark_job
-#    id、用户id、职位id
-
-CREATE TABLE `db_bjyzpw`.`tb_mark_job`  (
-  `tmj_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `tmj_user_id` bigint(20) NOT NULL COMMENT '用户id',
-  `tmj_job_id` bigint(20) NOT NULL COMMENT '职位id',
-  PRIMARY KEY (`tmj_id`),
-  CONSTRAINT `tmj_user_id` FOREIGN KEY (`tmj_user_id`) REFERENCES `db_bjyzpw`.`tb_user` (`u_id`),
-  CONSTRAINT `tmj_job_id` FOREIGN KEY (`tmj_job_id`) REFERENCES `db_bjyzpw`.`tb_company_job` (`cj_id`)
-);
-
-# 表6——公司收藏表： tb_mark_company
-#    id、用户id、公司id
-
-CREATE TABLE `db_bjyzpw`.`tb_mark_company`  (
-  `tmc_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `tmc_user_id` bigint(20) NOT NULL COMMENT '用户id',
-  `tmc_company_id` bigint(20) NOT NULL COMMENT '公司id',
-  PRIMARY KEY (`tmc_id`),
-  CONSTRAINT `tmc_user_id` FOREIGN KEY (`tmc_user_id`) REFERENCES `db_bjyzpw`.`tb_user` (`u_id`),
-  CONSTRAINT `tmc_company_id` FOREIGN KEY (`tmc_company_id`) REFERENCES `db_bjyzpw`.`tb_company_job` (`cj_id`)
-);
-
-# 功能需求：
-#    登陆、注册、关键词、反关键词、查询公司信息（天眼查）、收藏
+# 插入语句
+insert into db_bjyzpw.tb_job_info (ji_id,
+                                   ji_name,
+                                   ji_salary,
+                                   ji_city,
+                                   ji_exp,
+                                   ji_grade,
+                                   ji_gx,
+                                   ji_tag,
+                                   ji_temptation,
+                                   ji_description,
+                                   ji_word_address,
+                                   ji_publish_time,
+                                   ji_company_name,
+                                   ji_company_icon_url,
+                                   ji_company_id,
+                                   ji_hy,
+                                   ji_jd,
+                                   ji_gm,
+                                   ji_company_website)
+values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+# 删除语句
+delete
+from db_bjyzpw.tb_job_info
+where ji_id = ?;
+# 查询语句
+select *
+from db_bjyzpw.tb_job_info
+where ji_id = ?;

@@ -2,9 +2,7 @@
   <artifact type="exploded-war" name="Gradle : kgc.laki : recruitment-1.0-SNAPSHOT.war (exploded)">
     <output-path>$PROJECT_DIR$/build/libs/exploded/recruitment-1.0-SNAPSHOT.war</output-path>
     <properties id="gradle-properties">
-      <options external-project-path="$PROJECT_DIR$">
-        <manifest>TWFuaWZlc3QtVmVyc2lvbjogMS4wDQoNCg==</manifest>
-      </options>
+      <options external-project-path="$PROJECT_DIR$" />
     </properties>
     <root id="root">
       <element id="directory" name="META-INF">
@@ -29,6 +27,7 @@
           <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.70" />
           <element id="library" level="project" name="Gradle: org.jetbrains:annotations:13.0" />
           <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.14.0" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.47" />
         </element>
       </element>
     </root>

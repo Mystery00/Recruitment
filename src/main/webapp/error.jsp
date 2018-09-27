@@ -7,12 +7,11 @@
 <html>
 <head>
     <title>数据出错了~</title>
-    <link rel="stylesheet" href="//cdnjs.loli.net/ajax/libs/mdui/0.4.1/css/mdui.min.css">
-    <script src="//cdnjs.loli.net/ajax/libs/mdui/0.4.1/js/mdui.min.js"></script>
     <%
-        kgcException = SessionUtil.INSTANCE.getExceptionThenDestory(request);
+        kgcException = SessionUtil.INSTANCE.getException(request);
         if (kgcException == null) {
             response.sendRedirect("index");
+            SessionUtil.INSTANCE.removeException(request);
             return;
         }
     %>

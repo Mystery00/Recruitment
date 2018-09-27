@@ -1,6 +1,7 @@
 package kgc.laki.recruitment.constant
 
 object ExceptionCodeConstant {
+	const val ELSE = -1
 	const val DONE = 0
 	const val J_ERROR_INTERNET = 101
 	const val J_ERROR_EMPTY_RESPONSE = 102

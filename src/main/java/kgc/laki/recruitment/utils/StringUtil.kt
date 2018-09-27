@@ -1,8 +1,6 @@
 package kgc.laki.recruitment.utils
 
-import java.util.regex.Pattern
-import java.util.regex.Pattern.CASE_INSENSITIVE
-
+import java.util.*
 
 object StringUtil {
 	fun stringToList(string: String, split: String): List<String> = string.split(split).toMutableList()
@@ -37,5 +35,10 @@ object StringUtil {
 					stringBuilder.append(s)
 				}
 		return stringBuilder.toString()
+	}
+
+	fun getTodayInfo():String{
+		val calendar = Calendar.getInstance()
+		return "${calendar[Calendar.YEAR]}-${calendar[Calendar.MONTH]}-${calendar[Calendar.DATE]}"
 	}
 }

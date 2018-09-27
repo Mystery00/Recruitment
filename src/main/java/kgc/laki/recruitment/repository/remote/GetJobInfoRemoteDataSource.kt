@@ -3,6 +3,7 @@ package kgc.laki.recruitment.repository.remote
 import kgc.laki.recruitment.constant.ExceptionCodeConstant
 import kgc.laki.recruitment.model.JobInfo
 import kgc.laki.recruitment.repository.dataSource.GetJobInfoDataSource
+import kgc.laki.recruitment.repository.local.service.JobInfoService
 import kgc.laki.recruitment.utils.StringUtil
 import kgc.laki.recruitment.utils.exception.KGCException
 import org.jsoup.Jsoup
@@ -11,6 +12,7 @@ object GetJobInfoRemoteDataSource : GetJobInfoDataSource {
 	override fun get(positionID: String, html: String): JobInfo {
 		val jobInfo = JobInfo()
 		try {
+			jobInfo.jobID = positionID.toInt()
 			val doc = Jsoup.parse(html)
 			val position_head = doc.select(".position-head")[0]
 			val position_content_l = position_head.select(".position-content-l")[0]
@@ -48,6 +50,7 @@ object GetJobInfoRemoteDataSource : GetJobInfoDataSource {
 			jobInfo.jd = lis[1].text().split(" ")[0]
 			jobInfo.gm = lis[lis.size - 2].text().split(" ")[0]
 			jobInfo.companyWebsite = lis[lis.size - 1].select("a")[0].attr("href")
+			JobInfoService.set(jobInfo)
 		} catch (e: Exception) {
 			e.printStackTrace()
 			throw KGCException(ExceptionCodeConstant.J_ERROR_PARSE)

@@ -14,10 +14,11 @@ object SessionUtil {
 
 	fun put(request: HttpServletRequest, keyName: String, value: Any?) = request.session.setAttribute(keyName, value)
 
-	fun getExceptionThenDestory(request: HttpServletRequest): KGCException? {
-		val exception = get<KGCException>(request, SessionConstant.KGC_EXCEPTION)
-		request.removeAttribute(SessionConstant.KGC_EXCEPTION)
-		return exception
+	fun getException(request: HttpServletRequest): KGCException? = get<KGCException>(request, SessionConstant.KGC_EXCEPTION)
+
+	fun removeException(request: HttpServletRequest){
+		request.session.removeAttribute(SessionConstant.KGC_EXCEPTION)
+		request.session.invalidate()
 	}
 
 	fun setException(request: HttpServletRequest, exception: KGCException?) = put(request, SessionConstant.KGC_EXCEPTION, exception)

@@ -1,6 +1,7 @@
 package kgc.laki.recruitment.model
 
 class CompanyInfo {
+	var companyID = 0
 	lateinit var companyName: String
 	lateinit var companyIconUrl: String
 	lateinit var companyUrl: String
