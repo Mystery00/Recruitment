@@ -17,7 +17,7 @@
     %>
     <script>
         alert('<%=kgcException.getMsg()%>');
-        window.location.href = '/index';
+        window.location.href = 'index';
     </script>
 </head>
 <body>

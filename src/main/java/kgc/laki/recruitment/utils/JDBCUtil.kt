@@ -11,10 +11,11 @@ import java.util.HashMap
 object JDBCUtil {
 	private val USERNAME = PropertiesUtil.getMysqlInfo(PropertiesConstant.MYSQL_USER)
 	private val PASSWORD = PropertiesUtil.getMysqlInfo(PropertiesConstant.MYSQL_PASSWD)
+	private val PORT = PropertiesUtil.getMysqlInfo(PropertiesConstant.MYSQL_PORT)
 	private const val DRIVER = "com.mysql.jdbc.Driver"
 	private const val DB_NAME = "db_bjyzpw"
 
-	private const val url = "jdbc:mysql://localhost:3306/$DB_NAME"
+	private val url = "jdbc:mysql://localhost:$PORT/$DB_NAME?useUnicode=true&characterEncoding=utf-8"
 	private lateinit var connection: Connection
 	private lateinit var preparedStatement: PreparedStatement
 

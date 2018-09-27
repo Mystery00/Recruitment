@@ -80,7 +80,6 @@ object SearchRemoteDataSource : SearchDataSource {
 		val jsonString = apiResponse.body()?.string()
 				?: throw KGCException(ExceptionCodeConstant.J_ERROR_EMPTY_RESPONSE)
 		try {
-			println(jsonString)
 			val companyJobResponse = GsonFactory.gson.fromJson<CompanyJobResponse>(jsonString, CompanyJobResponse::class.java)
 			val list = companyJobResponse.content.positionResult.result
 			val newList = if (noKey != null)

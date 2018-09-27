@@ -7,4 +7,5 @@ object PropertiesConstant {
 
 	const val MYSQL_USER = "User"
 	const val MYSQL_PASSWD = "Password"
+	const val MYSQL_PORT = "Port"
 }
