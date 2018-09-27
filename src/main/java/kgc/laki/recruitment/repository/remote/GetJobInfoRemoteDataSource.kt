@@ -2,6 +2,7 @@ package kgc.laki.recruitment.repository.remote
 
 import kgc.laki.recruitment.model.JobInfo
 import kgc.laki.recruitment.repository.dataSource.GetJobInfoDataSource
+import kgc.laki.recruitment.utils.StringUtil
 import org.jsoup.Jsoup
 
 object GetJobInfoRemoteDataSource : GetJobInfoDataSource {
@@ -28,7 +29,10 @@ object GetJobInfoRemoteDataSource : GetJobInfoDataSource {
 		val job_advantage = job_detail.select(".job-advantage")[0]
 		jobInfo.temptation = job_advantage.select("p")[0].text()
 		val job_bt = job_detail.select(".job_bt")[0]
-//		jobInfo.description=Jsoup.parse(job)
+		jobInfo.description = job_bt.select("div")[0].html()
+		val job_address = job_detail.select(".job-address")[0]
+		val originAddress = job_address.select(".work_addr")[0].text()
+		jobInfo.workAddress = originAddress.substring(0, originAddress.length - 4)
 		val job_company = doc.select("#job_company")[0]
 		val dt = job_company.select("dt")[0]
 		jobInfo.companyIconUrl = dt.select("img")[0].attr("src")

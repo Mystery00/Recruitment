@@ -1,5 +1,9 @@
 package kgc.laki.recruitment.utils
 
+import java.util.regex.Pattern
+import java.util.regex.Pattern.CASE_INSENSITIVE
+
+
 object StringUtil {
 	fun stringToList(string: String, split: String): List<String> = string.split(split).toMutableList()
 

@@ -1,11 +1,5 @@
 <%@ page import="kgc.laki.recruitment.model.JobInfo" %>
-<%@ page import="kgc.laki.recruitment.utils.SessionUtil" %><%--
-  Created by IntelliJ IDEA.
-  User: myste
-  Date: 2018/09/26
-  Time: 14:37
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="kgc.laki.recruitment.utils.SessionUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -49,7 +43,8 @@
                 <%
                     for (String tag : jobInfo.tag) {
                 %>
-                <div class="mdui-chip"><span class="mdui-chip-title mdui-text-color-theme"><%=tag%></span></div>
+                <div class="mdui-chip"><span
+                        class="mdui-chip-title mdui-text-color-theme"><%=tag%></span></div>
                 <%
                     }
                 %>
@@ -63,8 +58,17 @@
     </div>
     <br>
     <div class="mdui-row">
-        <div class="mdui-card mdui-col-xs-7">
-
+        <div class="mdui-card mdui-col-xs-8">
+            <div class="mdui-card-content">
+                <div class="mdui-typo-subheading">
+                    <div class="mdui-typo-title">职位描述：</div>
+                </div>
+                <%=jobInfo.description%>
+            </div>
+            <div class="mdui-card-primary">
+                <div class="mdui-card-primary-title">工作地点：</div>
+                <div class="mdui-card-primary-subtitle"><%=jobInfo.workAddress%></div>
+            </div>
         </div>
         <div class="mdui-card mdui-col-xs-4">
             <div class="mdui-card-media" style="margin-top: 16px"><img
