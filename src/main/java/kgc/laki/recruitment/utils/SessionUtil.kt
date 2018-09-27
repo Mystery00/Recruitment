@@ -3,10 +3,7 @@
 package kgc.laki.recruitment.utils
 
 import kgc.laki.recruitment.constant.SessionConstant
-import kgc.laki.recruitment.model.CompanyJob
-import kgc.laki.recruitment.model.HotSearch
-import kgc.laki.recruitment.model.JobInfo
-import kgc.laki.recruitment.model.KeywordCategory
+import kgc.laki.recruitment.model.*
 import kgc.laki.recruitment.model.response.SearchChoose
 import kgc.laki.recruitment.utils.exception.KGCException
 import java.util.ArrayList
@@ -50,8 +47,8 @@ object SessionUtil {
 
 	fun setJobInfo(request: HttpServletRequest, value: JobInfo) = put(request, SessionConstant.JOB_INFO, value)
 
-//	fun getCompanyInfo(request: HttpServletRequest): JobInfo = get<JobInfo>(request, SessionConstant.JOB_INFO)
-//			?: CompanyInfo()
-//
-//	fun setJobInfo(request: HttpServletRequest, value: JobInfo) = put(request, SessionConstant.JOB_INFO, value)
+	fun getCompanyInfo(request: HttpServletRequest): CompanyInfo = get<CompanyInfo>(request, SessionConstant.COMPANY_INFO)
+			?: CompanyInfo()
+
+	fun setJobInfo(request: HttpServletRequest, value: CompanyInfo) = put(request, SessionConstant.COMPANY_INFO, value)
 }

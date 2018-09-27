@@ -16,7 +16,7 @@ import java.lang.Exception
 import java.util.ArrayList
 
 object SearchRemoteDataSource : SearchDataSource {
-	override fun getSearchChoose(query: String, searchBean: SearchBean, html: String?): SearchChoose {
+	override fun getSearchChoose(query: String, noKey: String?, searchBean: SearchBean, html: String?): SearchChoose {
 		val searchChoose = SearchChoose()
 		try {
 			val doc = Jsoup.parse(html)
@@ -54,7 +54,7 @@ object SearchRemoteDataSource : SearchDataSource {
 		return searchChoose
 	}
 
-	override fun getCompanyJob(query: String, searchBean: SearchBean): List<CompanyJob> {
+	override fun getCompanyJob(query: String, noKey: String?, searchBean: SearchBean): List<CompanyJob> {
 		val formattedSearchBean = searchBean.toDoSearch()
 		val companyJobList = ArrayList<CompanyJob>()
 		val firstResponse = RetrofitFactory.laGouGetResultFirstRetrofit
@@ -65,7 +65,7 @@ object SearchRemoteDataSource : SearchDataSource {
 			throw KGCException(ExceptionCodeConstant.J_ERROR_INTERNET)
 		val apiResponse = RetrofitFactory.laGouRetrofit
 				.create(LaGouAPI::class.java)
-				.getSearchResult(1, query,
+				.getSearchResult(searchBean.page, query,
 						formattedSearchBean.px,
 						formattedSearchBean.city,
 						formattedSearchBean.gj,
@@ -82,25 +82,31 @@ object SearchRemoteDataSource : SearchDataSource {
 		try {
 			println(jsonString)
 			val companyJobResponse = GsonFactory.gson.fromJson<CompanyJobResponse>(jsonString, CompanyJobResponse::class.java)
-			companyJobResponse.content.positionResult.result.forEach {
-				val companyJob = CompanyJob()
-				companyJob.jobName = it.positionName
-				companyJob.location = "${it.city}${if (it.district == null) "" else "·${it.district}"}"
-				companyJob.publishTime = it.formatCreateTime
-				companyJob.money = it.salary
-				companyJob.exp = it.workYear
-				companyJob.grade = it.education
-				companyJob.tag = it.positionLables
-				companyJob.companyName = it.companyShortName
-				companyJob.hy = it.industryField
-				companyJob.jd = it.financeStage
-				companyJob.personNum = it.companySize
-				companyJob.temptation = it.positionAdvantage
-				companyJob.companyImgUrl = "https://www.lgstatic.com/thumbnail_120x120/${it.companyLogo}"
-				companyJob.positionID = it.positionId.toString()
-				companyJob.companyID = it.companyId.toString()
-				companyJobList.add(companyJob)
-			}
+			val list = companyJobResponse.content.positionResult.result
+			val newList = if (noKey != null)
+				list.filter { !it.toString().contains(noKey) }
+			else
+				list
+			newList.filter { noKey != null && !it.toString().contains(noKey) }
+					.forEach {
+						val companyJob = CompanyJob()
+						companyJob.jobName = it.positionName
+						companyJob.location = "${it.city}${if (it.district == null) "" else "·${it.district}"}"
+						companyJob.publishTime = it.formatCreateTime
+						companyJob.money = it.salary
+						companyJob.exp = it.workYear
+						companyJob.grade = it.education
+						companyJob.tag = it.positionLables
+						companyJob.companyName = it.companyShortName
+						companyJob.hy = it.industryField
+						companyJob.jd = it.financeStage
+						companyJob.personNum = it.companySize
+						companyJob.temptation = it.positionAdvantage
+						companyJob.companyImgUrl = "https://www.lgstatic.com/thumbnail_120x120/${it.companyLogo}"
+						companyJob.positionID = it.positionId.toString()
+						companyJob.companyID = it.companyId.toString()
+						companyJobList.add(companyJob)
+					}
 		} catch (e: Exception) {
 			e.printStackTrace()
 			throw KGCException(ExceptionCodeConstant.J_ERROR_PARSE)

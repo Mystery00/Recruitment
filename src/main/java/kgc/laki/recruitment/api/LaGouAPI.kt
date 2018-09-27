@@ -45,4 +45,7 @@ interface LaGouAPI {
 
 	@GET("/jobs/{id}.html")
 	fun getJobInfo(@Path("id") id: String): Call<ResponseBody>
+
+	@GET("/gongsi/{id}.html")
+	fun getCompanyInfo(@Path("id") id: String): Call<ResponseBody>
 }

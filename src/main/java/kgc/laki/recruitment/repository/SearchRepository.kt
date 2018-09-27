@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletRequest
 object SearchRepository {
 	fun doSearch(request: HttpServletRequest,
 				 searchBean: SearchBean) {
-		val html = doSearch(searchBean)
-		val searchChoose = SearchRemoteDataSource.getSearchChoose(searchBean.query, searchBean, html)
-		val companyJob = SearchRemoteDataSource.getCompanyJob(searchBean.query, searchBean)
+		val queryString = searchBean.query.split("!!!")
+		val query = queryString[0]
+		val noKey = if (queryString.size == 2) queryString[1] else null
+		val html = doSearch(searchBean, query)
+		val searchChoose = SearchRemoteDataSource.getSearchChoose(query, noKey,searchBean, html)
+		val companyJob = SearchRemoteDataSource.getCompanyJob(query,noKey, searchBean)
 		SessionUtil.setSearchChoose(request, searchChoose)
 		SessionUtil.setCompanyJob(request, companyJob)
 	}
@@ -47,11 +50,11 @@ object SearchRepository {
 		return searchBean
 	}
 
-	private fun doSearch(searchBean: SearchBean): String {
+	private fun doSearch(searchBean: SearchBean, query: String): String {
 		val formattedSearchBean = searchBean.toDoSearch()
 		val apiResponse = RetrofitFactory.laGouRetrofit
 				.create(LaGouAPI::class.java)
-				.search(formattedSearchBean.query,
+				.search(query,
 						formattedSearchBean.city,
 						formattedSearchBean.isSchoolJob,
 						formattedSearchBean.gm,

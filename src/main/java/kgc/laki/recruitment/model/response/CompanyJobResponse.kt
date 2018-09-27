@@ -132,6 +132,10 @@ class CompanyJobResponse {
 				lateinit var positionLables: List<String>
 				lateinit var industryLables: List<String>
 				lateinit var skillLables: List<String>
+
+				override fun toString(): String {
+					return "$companyId, $companyShortName, $positionId, $industryField, $education, $workYear, $city, $positionAdvantage, $createTime, $salary, $positionName, $companySize, $companyLogo, $financeStage, $approve, $jobNature, $publisherId, $score, $district, $businessZones, $longitude, $latitude, $imState, $lastLogin, $explain, $plus, $pcShow, $appShow, $deliver, $gradeDescription, $promotionScoreExplain, $firstType, $secondType', $isSchoolJob, $subwayline, $stationname, $linestaion, $thirdType, $hitags, $resumeProcessRate, $resumeProcessDay, $formatCreateTime, $companyFullName, $adWord, $companyLabelList, $positionLables, $industryLables, $skillLables"
+				}
 			}
 		}
 	}

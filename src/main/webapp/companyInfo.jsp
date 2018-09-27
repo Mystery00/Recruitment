@@ -1,12 +1,12 @@
-<%@ page import="kgc.laki.recruitment.model.JobInfo" %>
 <%@ page import="kgc.laki.recruitment.utils.SessionUtil" %>
+<%@ page import="kgc.laki.recruitment.model.CompanyInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <%
-        JobInfo jobInfo = SessionUtil.INSTANCE.getJobInfo(request);
+        CompanyInfo companyInfo = SessionUtil.INSTANCE.getCompanyInfo(request);
     %>
-    <title><%=jobInfo.jobName%> - <%=jobInfo.companyName%>
+    <title><%=companyInfo.companyName%>
     </title>
 </head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
@@ -31,29 +31,18 @@
 </div>
 <div class="mdui-container" style="margin-top: 20px">
     <div class="mdui-card mdui-row">
-        <div class="mdui-typo-display-2 mdui-card-header mdui-col-xs-8"><%=jobInfo.jobName%>
+        <div class="mdui-col-xs-2">
+            <img src="<%=companyInfo.companyIconUrl%>" width="164" height="164">
         </div>
-        <div class="mdui-card-content mdui-col-xs-8">
-            <div class="mdui-typo-subheading">
-                <p><span
-                        class="mdui-text-color-red"><%=jobInfo.salary%></span><%=jobInfo.city%><%=jobInfo.exp%><%=jobInfo.grade%><%=jobInfo.gx%>
-                </p>
+        <div class="mdui-col-xs-10">
+            <div class="mdui-card-primary">
+                <a href="<%=companyInfo.companyUrl%>">
+                    <div class="mdui-card-primary-title"><%=companyInfo.companyName%>
+                    </div>
+                </a>
+                <div class="mdui-card-primary-subtitle"><%=companyInfo.companyIntroduce%>
+                </div>
             </div>
-            <div>
-                <%
-                    for (String tag : jobInfo.tag) {
-                %>
-                <div class="mdui-chip"><span
-                        class="mdui-chip-title mdui-text-color-theme"><%=tag%></span></div>
-                <%
-                    }
-                %>
-            </div>
-            <div class="mdui-typo-subheading"><p><%=jobInfo.publishTIme%> 发布在拉勾网
-            </p></div>
-        </div>
-        <div class="mdui-card-content  mdui-col-xs-4">
-            <button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent">收藏</button>
         </div>
     </div>
     <br>
@@ -61,39 +50,56 @@
         <div class="mdui-card mdui-col-xs-8">
             <div class="mdui-card-content">
                 <div class="mdui-typo-subheading">
-                    <div class="mdui-typo-title">职位描述：</div>
+                    <div class="mdui-typo-title">公司介绍：</div>
                 </div>
-                <%=jobInfo.description%>
+                <div>
+                    <%
+                        String htmlString = "<p>" + companyInfo.introductionString.replaceAll("\n", "</p><p>") + "</p>";
+                    %>
+                    <%=htmlString%>
+                </div>
+                <div>
+                    <%
+                        for (String url : companyInfo.pictures) {
+                    %>
+                    <img src="<%=url%>" width="480" height="320">
+                    <%
+                        }
+                    %>
+                </div>
             </div>
             <div class="mdui-card-primary">
                 <div class="mdui-card-primary-title">工作地点：</div>
-                <div class="mdui-card-primary-subtitle"><%=jobInfo.workAddress%>
+                <div class="mdui-card-primary-subtitle"><%=companyInfo.location%>
                 </div>
             </div>
         </div>
         <div class="mdui-card mdui-col-xs-4">
-            <div class="mdui-card-media" style="margin-top: 16px"><img
-                    class="mdui-img-rounded mdui-center"
-                    style="width: 100px"
-                    src="<%=jobInfo.companyIconUrl%>" width="100"
-                    height="100"></div>
             <div class="mdui-card-primary">
-                <a href="getCompanyInfo?companyID=<%=jobInfo.companyID%>">
-                    <div class="mdui-text-center mdui-typo-display-1"><%=jobInfo.companyName%>
-                    </div>
-                </a>
+                <div class="mdui-card-primary-title">公司基本信息</div>
             </div>
             <div class="mdui-card-content">
-                <div class="mdui-typo-subheading"><p>公司领域：<%=jobInfo.companyHY%>
+                <div class="mdui-typo-subheading"><p>公司领域：<%=companyInfo.hy%>
                 </p></div>
-                <div class="mdui-typo-subheading"><p>融资阶段：<%=jobInfo.jd%>
+                <div class="mdui-typo-subheading"><p>融资阶段：<%=companyInfo.jd%>
                 </p></div>
-                <div class="mdui-typo-subheading"><p>公司规模：<%=jobInfo.gm%>
+                <div class="mdui-typo-subheading"><p>公司规模：<%=companyInfo.gm%>
                 </p></div>
-                <div class="mdui-typo-subheading"><p>公司主页：<a
-                        href="<%=jobInfo.companyWebsite%>"><%=jobInfo.companyWebsite%>
-                </a>
+                <div class="mdui-typo-subheading"><p>城市：<%=companyInfo.city%>
                 </p></div>
+            </div>
+            <div class="mdui-card-primary">
+                <div class="mdui-card-primary-title">公司标签</div>
+            </div>
+            <div class="mdui-card-content">
+                <%
+                    for (String tag : companyInfo.labels) {
+                %>
+                <div class="mdui-chip"><span
+                        class="mdui-chip-title mdui-text-color-theme"><%=tag%></span></div>
+                <%
+                    }
+                %>
             </div>
         </div>
     </div>

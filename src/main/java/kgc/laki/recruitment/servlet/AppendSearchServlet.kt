@@ -1,10 +1,12 @@
 package kgc.laki.recruitment.servlet
 
 import kgc.laki.recruitment.base.BaseServlet
+import kgc.laki.recruitment.constant.ExceptionCodeConstant
 import kgc.laki.recruitment.repository.SearchRepository
 import kgc.laki.recruitment.utils.SessionUtil
 import kgc.laki.recruitment.utils.StringUtil
 import kgc.laki.recruitment.utils.exception.KGCException
+import java.net.UnknownHostException
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse
 @WebServlet(name = "AppendSearchServlet", urlPatterns = ["/appendSearch"])
 class AppendSearchServlet : BaseServlet() {
 	override fun doAction(request: HttpServletRequest, response: HttpServletResponse) {
+		val page = request.getParameter("page")
 		val query = request.getParameter("query")
 		val city = request.getParameter("city")
 		val gx = request.getParameter("gx")
@@ -21,6 +24,7 @@ class AppendSearchServlet : BaseServlet() {
 		val gm = request.getParameter("gm")
 		val hy = request.getParameter("hy")
 		val searchBean = SessionUtil.getSearchChoose(request).searchBean
+		searchBean.page = page?.toInt() ?: 1
 		if (query != null) searchBean.query = query
 		if (city != null) searchBean.city = city
 		if (gx != null) {
@@ -111,8 +115,12 @@ class AppendSearchServlet : BaseServlet() {
 		}
 		try {
 			SearchRepository.doSearch(request, searchBean)
-		} catch (e: KGCException) {
-			SessionUtil.setException(request, e)
+		} catch (e: Exception) {
+			when (e) {
+				is KGCException -> SessionUtil.setException(request, e)
+				is UnknownHostException -> SessionUtil.setException(request, KGCException(ExceptionCodeConstant.J_ERROR_INTERNET))
+				else -> SessionUtil.setException(request, KGCException(ExceptionCodeConstant.DONE, e.message))
+			}
 			response.sendRedirect("error.jsp")
 			return
 		}

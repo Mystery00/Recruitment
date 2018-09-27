@@ -3,6 +3,7 @@ package kgc.laki.recruitment.model
 import java.io.Serializable
 
 class SearchBean : Serializable {
+	var page: Int = 1
 	lateinit var query: String//关键字
 	lateinit var city: String//城市 单选
 	var isSchoolJob: Int = 0//是否是校招 是-1 否-0 单选

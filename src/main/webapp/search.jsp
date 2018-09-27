@@ -197,11 +197,34 @@
         %>
     </ul>
     <div class="mdui-btn-group">
-        <button type="button" class="mdui-btn"><i class="mdui-icon material-icons">chevron_left</i>
+        <a class="mdui-btn mdui-valign"
+           href="<%=searchChoose.searchBean.getPage() == 1 ? "#!" : "appendSearch?page="+(searchChoose.searchBean.getPage()-1)%>"><i
+                class="mdui-icon material-icons">chevron_left</i></a>
+        <%
+            for (int i = searchChoose.searchBean.getPage() - 4; i < searchChoose.searchBean.getPage(); i++) {
+                if (i <= 0)
+                    continue;
+        %>
+        <a class="mdui-btn mdui-valign" href="appendSearch?page=<%=i%>"><%=i%>
+        </a>
+        <%
+            }
+        %>
+        <button type="button"
+                class="mdui-btn mdui-btn-active mdui-valign"><%=searchChoose.searchBean.getPage()%>
         </button>
-        <button type="button" class="mdui-btn mdui-btn-active">1</button>
-        <button type="button" class="mdui-btn"><i class="mdui-icon material-icons">chevron_right</i>
-        </button>
+        <%
+            for (int i = 1; i <= 4; i++) {
+        %>
+        <a class="mdui-btn mdui-valign"
+           href="appendSearch?page=<%=searchChoose.searchBean.getPage() + i%>"><%=searchChoose.searchBean.getPage() + i%>
+        </a>
+        <%
+            }
+        %>
+        <a class="mdui-btn mdui-valign"
+           href="appendSearch?page=<%=searchChoose.searchBean.getPage()+1%>"><i
+                class="mdui-icon material-icons">chevron_right</i></a>
     </div>
 </div>
 <link rel="stylesheet" href="//cdnjs.loli.net/ajax/libs/mdui/0.4.1/css/mdui.min.css">
