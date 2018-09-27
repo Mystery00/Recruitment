@@ -84,29 +84,28 @@ object SearchRemoteDataSource : SearchDataSource {
 			val companyJobResponse = GsonFactory.gson.fromJson<CompanyJobResponse>(jsonString, CompanyJobResponse::class.java)
 			val list = companyJobResponse.content.positionResult.result
 			val newList = if (noKey != null)
-				list.filter { !it.toString().contains(noKey) }
+				list.filter { !it.positionName.contains(noKey) }
 			else
 				list
-			newList.filter { noKey != null && !it.toString().contains(noKey) }
-					.forEach {
-						val companyJob = CompanyJob()
-						companyJob.jobName = it.positionName
-						companyJob.location = "${it.city}${if (it.district == null) "" else "·${it.district}"}"
-						companyJob.publishTime = it.formatCreateTime
-						companyJob.money = it.salary
-						companyJob.exp = it.workYear
-						companyJob.grade = it.education
-						companyJob.tag = it.positionLables
-						companyJob.companyName = it.companyShortName
-						companyJob.hy = it.industryField
-						companyJob.jd = it.financeStage
-						companyJob.personNum = it.companySize
-						companyJob.temptation = it.positionAdvantage
-						companyJob.companyImgUrl = "https://www.lgstatic.com/thumbnail_120x120/${it.companyLogo}"
-						companyJob.positionID = it.positionId.toString()
-						companyJob.companyID = it.companyId.toString()
-						companyJobList.add(companyJob)
-					}
+			newList.forEach {
+				val companyJob = CompanyJob()
+				companyJob.jobName = it.positionName
+				companyJob.location = "${it.city}${if (it.district == null) "" else "·${it.district}"}"
+				companyJob.publishTime = it.formatCreateTime
+				companyJob.money = it.salary
+				companyJob.exp = it.workYear
+				companyJob.grade = it.education
+				companyJob.tag = it.positionLables
+				companyJob.companyName = it.companyShortName
+				companyJob.hy = it.industryField
+				companyJob.jd = it.financeStage
+				companyJob.personNum = it.companySize
+				companyJob.temptation = it.positionAdvantage
+				companyJob.companyImgUrl = "https://www.lgstatic.com/thumbnail_120x120/${it.companyLogo}"
+				companyJob.positionID = it.positionId.toString()
+				companyJob.companyID = it.companyId.toString()
+				companyJobList.add(companyJob)
+			}
 		} catch (e: Exception) {
 			e.printStackTrace()
 			throw KGCException(ExceptionCodeConstant.J_ERROR_PARSE)

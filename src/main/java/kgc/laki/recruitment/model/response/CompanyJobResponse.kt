@@ -98,23 +98,11 @@ class CompanyJobResponse {
 				lateinit var companySize: String
 				lateinit var companyLogo: String
 				lateinit var financeStage: String
-				var approve: Int = 0
 				lateinit var jobNature: String
-				var publisherId: Int = 0
-				var score: Int = 0
 				var district: String? = null
-				lateinit var businessZones: Any
 				lateinit var longitude: String
 				lateinit var latitude: String
 				lateinit var imState: String
-				var lastLogin: Long = 0
-				lateinit var explain: Any
-				lateinit var plus: Any
-				var pcShow: Int = 0
-				var appShow: Int = 0
-				var deliver: Int = 0
-				lateinit var gradeDescription: Any
-				lateinit var promotionScoreExplain: Any
 				lateinit var firstType: String
 				lateinit var secondType: String
 				var isSchoolJob: Int = 0
@@ -122,20 +110,12 @@ class CompanyJobResponse {
 				lateinit var stationname: String
 				lateinit var linestaion: String
 				lateinit var thirdType: String
-				lateinit var hitags: Any
-				var resumeProcessRate: Int = 0
-				var resumeProcessDay: Int = 0
 				lateinit var formatCreateTime: String
 				lateinit var companyFullName: String
-				var adWord: Int = 0
 				lateinit var companyLabelList: List<String>
 				lateinit var positionLables: List<String>
 				lateinit var industryLables: List<String>
 				lateinit var skillLables: List<String>
-
-				override fun toString(): String {
-					return "$companyId, $companyShortName, $positionId, $industryField, $education, $workYear, $city, $positionAdvantage, $createTime, $salary, $positionName, $companySize, $companyLogo, $financeStage, $approve, $jobNature, $publisherId, $score, $district, $businessZones, $longitude, $latitude, $imState, $lastLogin, $explain, $plus, $pcShow, $appShow, $deliver, $gradeDescription, $promotionScoreExplain, $firstType, $secondType', $isSchoolJob, $subwayline, $stationname, $linestaion, $thirdType, $hitags, $resumeProcessRate, $resumeProcessDay, $formatCreateTime, $companyFullName, $adWord, $companyLabelList, $positionLables, $industryLables, $skillLables"
-				}
 			}
 		}
 	}
