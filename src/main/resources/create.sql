@@ -1,5 +1,5 @@
 # 创建数据库
-CREATE DATABASE 'db_bjyzpw';
+CREATE DATABASE db_bjyzpw;
 
 # 表1 - 热搜表
 create table db_bjyzpw.tb_hot_search (
